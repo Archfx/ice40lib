@@ -1,11 +1,9 @@
 # iCE40lib : FPGA pheripheral Library 
 
 This repository contains various pheripheral drivers written in verilog for open source ICE40 FPGAs.
+iCESuger nano FPGA ships with several PMOD accessories. This repository contains verilog IPs to work with them.
 
-<p align="center">
-  <img src="/images/ice40.jpeg" width="200" alt="ice40-kit"/>
-</p>
-
+<img src="/images/ice40.jpeg" alt="docker" width="200" align="right">
 
 Content
 ======

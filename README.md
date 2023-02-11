@@ -1,4 +1,4 @@
-# ICE40 FPGA pheripheral Library
+# iCE40lib : FPGA pheripheral Library 
 
 This repository contains various pheripheral drivers written in verilog for open source ICE40 FPGAs.
 
@@ -17,7 +17,11 @@ Build
 Yosys tool chain is required to build the binary files.
 For this you can use the following docker container with all the dependencies
 
-[![dockeri.co](https://dockerico.blankenship.io/image/archfx/yosystools)](https://hub.docker.com/r/archfx/yosystools)
+<p align="center">
+  <img src="https://dockerico.blankenship.io/image/archfx/yosystools" alt="Sublime's custom image"/>
+</p>
+
+<!-- [![dockeri.co](https://dockerico.blankenship.io/image/archfx/yosystools)](https://hub.docker.com/r/archfx/yosystools) -->
 
 Follow the steps to build usign the docker environemt. (You should have the docker deamon installed on your system)
 

@@ -1,0 +1,3 @@
+read_verilog lcd_core.v
+synth_ice40 -top lcd_core
+write_json lcd_core.json

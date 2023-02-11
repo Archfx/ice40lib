@@ -1,0 +1,7 @@
+set_io led1 A1
+set_io led2 B1
+set_io led3 E1
+set_io led4 C2
+set_io led5 E3
+
+set_io clki D1

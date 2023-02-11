@@ -2,6 +2,11 @@
 
 This repository contains various pheripheral drivers written in verilog for open source ICE40 FPGAs.
 
+<p align="center">
+  <img src="/images/ice40.jpg" alt="ice40-kit"/>
+</p>
+
+
 Content
 ======
 

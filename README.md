@@ -6,8 +6,8 @@ Content
 ======
 
 1. blinky : LED blink example 
-2. lcd : Driver for PMOD LCD ([based on I2C IP](https://github.com/alexforencich/verilog-i2c))
-https://github.com/lawrie/ulx3s_examples
+2. lcd : Driver for PMOD LCD ([based st7735 IP](https://github.com/lawrie/ulx3s_examples))
+
 
 
 
@@ -24,31 +24,31 @@ Follow the steps to build usign the docker environemt. (You should have the dock
 1. Clone the repository
 
 ```shell
-git clone archfx/ice40extra
+git clone https://github.com/Archfx/ice40lib
 ```
 
 2. Pull the docker image from docker-hub
 
 
 ```shell
-docker pull archfx/yosystools
+docker pull archfx/ice40tools
 ```
 
-3. Set the expected location to share with the container
+3. Set the expected location to mount with the container
 ```shell
-export LOC=/ice40extra
+export LOC=/ice40lib
 ```
 
 4. Run the Docker image
 ```shell
-sudo docker run -t -p 6080:6080 -v "${PWD}/:/yosystools" -w /yosystools --name linuxdev archfx/yosystools
+sudo docker run -t -p 6080:6080 -v "${PWD}/:/$LOC" -w /$LOC --name ice40tools archfx/ice40tools
 ```
 This will open up a browser window with 
 
 5. Connect to the docker image
 
 ```shell
-sudo docker exec -it linuxdev /bin/bash
+sudo docker exec -it ice40tools /bin/bash
 ```
 
 6. Comlpile the design and upload
@@ -57,9 +57,12 @@ Note change the --pl1k parameter with the chip model that you have. iCESugar Nan
 
 ```shell
 cd ice40/examples/blinky
+
 yosys -p 'synth_ice40 -top blinky -json blinky.json' blinky.v               # synthesize into blinky.json
+
 nextpnr-ice40 --lp1k --json blinky.json --pcf blinky.pcf --asc blinky.asc --package cm36  # run place and route
 icepack blinky.asc blinky.bin                                               # generate binary bitstream file
+
 iceprog blinky.bin                                                       
 ```
 

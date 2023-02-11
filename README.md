@@ -8,8 +8,8 @@ iCESuger nano FPGA ships with several PMOD accessories. This repository contains
 Content
 ======
 
-1. blinky : LED blink example 
-2. lcd : Driver for PMOD LCD ([based st7735 IP](https://github.com/lawrie/ulx3s_examples))
+1. [blinky](/blinky/) : LED blink example 
+2. [lcd](/lcd/) : Driver for PMOD LCD ([based st7735 IP](https://github.com/lawrie/ulx3s_examples))
 
 
 

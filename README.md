@@ -21,8 +21,10 @@ Yosys tool chain is required to build the binary files.
 For this you can use the following docker container with all the dependencies
 
 <p align="center">
-  <img src="https://dockerico.blankenship.io/image/archfx/yosystools" alt="Sublime's custom image"/>
+  <img src="https://dockerico.blankenship.io/image/archfx/ice40tools" alt="Sublime's custom image"/>
 </p>
+
+<!-- [![dockeri.co](https://dockerico.blankenship.io/image/archfx/ice40tools)](https://hub.docker.com/r/archfx/ice40tools) -->
 
 <!-- [![dockeri.co](https://dockerico.blankenship.io/image/archfx/yosystools)](https://hub.docker.com/r/archfx/yosystools) -->
 
@@ -48,14 +50,14 @@ export LOC=/ice40lib
 
 4. Run the Docker image
 ```shell
-sudo docker run -t -p 6080:6080 -v "${PWD}/:/$LOC" -w /$LOC --name ice40tools archfx/ice40tools
+docker run -t -p 6080:6080 -v "${PWD}/:/$LOC" -w /$LOC --name ice40tools archfx/ice40tools
 ```
 This will open up a browser window with 
 
 5. Connect to the docker image
 
 ```shell
-sudo docker exec -it ice40tools /bin/bash
+docker exec -it ice40tools /bin/bash
 ```
 
 6. Comlpile the design and upload

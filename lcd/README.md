@@ -1,5 +1,9 @@
-LCD folder contains two demo examples
+LCD IP
 ======
+
+This folder contains two demo examples
+1. checkered lcd demo
+2. hex lcd demo
 
 Run below commands inside the docker container
 

@@ -1,8 +1,6 @@
 module top_hex_demo
 (
     input  wire clki,
-    input  wire [6:0] btn,
-    output wire [7:0] led,
     output wire oled_csn,
     output wire oled_clk,
     output wire oled_mosi,
@@ -16,19 +14,16 @@ module top_hex_demo
     );
     parameter C_color_bits = 16; 
 
-    assign led = 0;
+    localparam BITS = 5;
+    localparam LOG2DELAY = 21;
 
+    reg [127:0] counter = 0;
     reg [127:0] R_display; // something to display
+
     always @(posedge clk_25mhz)
     begin
-      R_display[0] <= btn[0];
-      R_display[4] <= btn[1];
-      R_display[8] <= btn[2];
-      R_display[12] <= btn[3];
-      R_display[16] <= btn[4];
-      R_display[20] <= btn[5];
-      R_display[24] <= btn[6];
-      R_display[127:64] <= R_display[127:64] + 1; // shown in next OLED row
+        counter <= counter + 1;
+        R_display <= counter >> LOG2DELAY;
     end
 
     wire [6:0] x;

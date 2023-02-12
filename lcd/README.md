@@ -3,7 +3,7 @@ LCD folder contains two demo examples
 
 Run below commands inside the docker container
 
-## Buildging checkered demo
+### Building checkered demo
 
 ```shell
 yosys -p 'synth_ice40 -top top_checkered -json checkered.json' top_checkered.v oled_video.v
@@ -14,7 +14,7 @@ icepack checkered.asc checkered.bin
 ```
 
 
-## Buildging hex demo
+### Building hex demo
 
 ```shell
 yosys -p 'synth_ice40 -top top_hex_demo -json hex.json' top_hex_demo.v oled_video.v hex_decoder.v

@@ -1,0 +1,6 @@
+ARCH=rv32i
+OPTIMIZE=
+ABI=ilp32
+RAM_SIZE=0x80000
+DEVICES=
+BOARD=icesugar_nano

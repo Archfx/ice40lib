@@ -10,17 +10,12 @@ module top_checkered (
     wire [15:0] color = x[3] ^ y[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
     wire [6:0] x;
     wire [7:0] y;
-
-    SB_GB clk_gb (
-    .USER_SIGNAL_TO_GLOBAL_BUFFER(clki),
-    .GLOBAL_BUFFER_OUTPUT(clk_25mhz)
-    );
     
     oled_video #(
         .C_init_file("st7735_init.mem"),
         .C_init_size(110)
     ) oled_video_inst (
-        .clk(clk_25mhz),
+        .clk(clki),
         .x(x),
         .y(y),
         .color(color),

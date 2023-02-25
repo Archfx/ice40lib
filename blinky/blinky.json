@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.25+60 (git sha1 611f71c67, clang 6.0.0-1ubuntu2 -fPIC -Os)",
+  "creator": "Yosys 0.26+4 (git sha1 5ea2c290a, clang 10.0.0-4ubuntu1 -fPIC -Os)",
   "modules": {
     "ICESTORM_LC": {
       "attributes": {
@@ -3544,6 +3544,7 @@
     "SB_GB": {
       "attributes": {
         "blackbox": "00000000000000000000000000000001",
+        "cells_not_processed": "00000000000000000000000000000001",
         "src": "/usr/local/bin/../share/yosys/ice40/cells_sim.v:162.1-172.10"
       },
       "ports": {
@@ -9641,62 +9642,27 @@
     "blinky": {
       "attributes": {
         "hdlname": "\\blinky",
-        "dynports": "00000000000000000000000000000001",
         "top": "00000000000000000000000000000001",
-        "src": "blinky.v:1.1-27.10"
+        "src": "blinky.v:1.1-18.10"
       },
       "ports": {
         "clki": {
           "direction": "input",
           "bits": [ 2 ]
         },
-        "led1": {
+        "led": {
           "direction": "output",
           "bits": [ 3 ]
-        },
-        "led2": {
-          "direction": "output",
-          "bits": [ 4 ]
-        },
-        "led3": {
-          "direction": "output",
-          "bits": [ 5 ]
-        },
-        "led4": {
-          "direction": "output",
-          "bits": [ 6 ]
-        },
-        "led5": {
-          "direction": "output",
-          "bits": [ 7 ]
         }
       },
       "cells": {
-        "clk_gb": {
-          "hide_name": 0,
-          "type": "SB_GB",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:10.11-13.6"
-          },
-          "port_directions": {
-            "GLOBAL_BUFFER_OUTPUT": "output",
-            "USER_SIGNAL_TO_GLOBAL_BUFFER": "input"
-          },
-          "connections": {
-            "GLOBAL_BUFFER_OUTPUT": [ 8 ],
-            "USER_SIGNAL_TO_GLOBAL_BUFFER": [ 2 ]
-          }
-        },
         "counter_SB_CARRY_CI": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9705,10 +9671,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 9 ],
-            "CO": [ 10 ],
+            "CI": [ 4 ],
+            "CO": [ 5 ],
             "I0": [ "0" ],
-            "I1": [ 11 ]
+            "I1": [ 6 ]
           }
         },
         "counter_SB_CARRY_I1": {
@@ -9717,7 +9683,49 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 7 ],
+            "CO": [ 8 ],
+            "I0": [ "0" ],
+            "I1": [ 9 ]
+          }
+        },
+        "counter_SB_CARRY_I1_1": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 10 ],
+            "CO": [ 7 ],
+            "I0": [ "0" ],
+            "I1": [ 11 ]
+          }
+        },
+        "counter_SB_CARRY_I1_10": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9732,13 +9740,13 @@
             "I1": [ 14 ]
           }
         },
-        "counter_SB_CARRY_I1_1": {
+        "counter_SB_CARRY_I1_11": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9753,13 +9761,13 @@
             "I1": [ 16 ]
           }
         },
-        "counter_SB_CARRY_I1_10": {
+        "counter_SB_CARRY_I1_12": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9769,51 +9777,9 @@
           },
           "connections": {
             "CI": [ 17 ],
-            "CO": [ 18 ],
+            "CO": [ 15 ],
             "I0": [ "0" ],
-            "I1": [ 19 ]
-          }
-        },
-        "counter_SB_CARRY_I1_11": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 20 ],
-            "CO": [ 17 ],
-            "I0": [ "0" ],
-            "I1": [ 21 ]
-          }
-        },
-        "counter_SB_CARRY_I1_12": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 22 ],
-            "CO": [ 20 ],
-            "I0": [ "0" ],
-            "I1": [ 23 ]
+            "I1": [ 18 ]
           }
         },
         "counter_SB_CARRY_I1_13": {
@@ -9822,7 +9788,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9831,10 +9797,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 24 ],
-            "CO": [ 22 ],
+            "CI": [ 19 ],
+            "CO": [ 17 ],
             "I0": [ "0" ],
-            "I1": [ 25 ]
+            "I1": [ 20 ]
           }
         },
         "counter_SB_CARRY_I1_14": {
@@ -9843,7 +9809,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9852,10 +9818,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 26 ],
-            "CO": [ 24 ],
+            "CI": [ 21 ],
+            "CO": [ 19 ],
             "I0": [ "0" ],
-            "I1": [ 27 ]
+            "I1": [ 22 ]
           }
         },
         "counter_SB_CARRY_I1_15": {
@@ -9864,7 +9830,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9873,10 +9839,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 28 ],
-            "CO": [ 26 ],
+            "CI": [ 23 ],
+            "CO": [ 21 ],
             "I0": [ "0" ],
-            "I1": [ 29 ]
+            "I1": [ 24 ]
           }
         },
         "counter_SB_CARRY_I1_16": {
@@ -9885,7 +9851,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9894,10 +9860,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 30 ],
-            "CO": [ 28 ],
+            "CI": [ 25 ],
+            "CO": [ 23 ],
             "I0": [ "0" ],
-            "I1": [ 31 ]
+            "I1": [ 26 ]
           }
         },
         "counter_SB_CARRY_I1_17": {
@@ -9906,7 +9872,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9915,10 +9881,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 32 ],
-            "CO": [ 30 ],
+            "CI": [ 27 ],
+            "CO": [ 25 ],
             "I0": [ "0" ],
-            "I1": [ 33 ]
+            "I1": [ 28 ]
           }
         },
         "counter_SB_CARRY_I1_18": {
@@ -9927,7 +9893,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9936,10 +9902,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 34 ],
-            "CO": [ 32 ],
+            "CI": [ 29 ],
+            "CO": [ 27 ],
             "I0": [ "0" ],
-            "I1": [ 35 ]
+            "I1": [ 30 ]
           }
         },
         "counter_SB_CARRY_I1_19": {
@@ -9948,7 +9914,70 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 31 ],
+            "CO": [ 29 ],
+            "I0": [ "0" ],
+            "I1": [ 32 ]
+          }
+        },
+        "counter_SB_CARRY_I1_2": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 33 ],
+            "CO": [ 10 ],
+            "I0": [ "0" ],
+            "I1": [ 34 ]
+          }
+        },
+        "counter_SB_CARRY_I1_20": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+          },
+          "port_directions": {
+            "CI": "input",
+            "CO": "output",
+            "I0": "input",
+            "I1": "input"
+          },
+          "connections": {
+            "CI": [ 8 ],
+            "CO": [ 31 ],
+            "I0": [ "0" ],
+            "I1": [ 35 ]
+          }
+        },
+        "counter_SB_CARRY_I1_3": {
+          "hide_name": 0,
+          "type": "SB_CARRY",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9958,18 +9987,18 @@
           },
           "connections": {
             "CI": [ 36 ],
-            "CO": [ 34 ],
+            "CO": [ 33 ],
             "I0": [ "0" ],
             "I1": [ 37 ]
           }
         },
-        "counter_SB_CARRY_I1_2": {
+        "counter_SB_CARRY_I1_4": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -9979,18 +10008,18 @@
           },
           "connections": {
             "CI": [ 38 ],
-            "CO": [ 15 ],
+            "CO": [ 36 ],
             "I0": [ "0" ],
             "I1": [ 39 ]
           }
         },
-        "counter_SB_CARRY_I1_20": {
+        "counter_SB_CARRY_I1_5": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -10000,18 +10029,18 @@
           },
           "connections": {
             "CI": [ 40 ],
-            "CO": [ 36 ],
+            "CO": [ 38 ],
             "I0": [ "0" ],
             "I1": [ 41 ]
           }
         },
-        "counter_SB_CARRY_I1_21": {
+        "counter_SB_CARRY_I1_6": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -10026,13 +10055,13 @@
             "I1": [ 43 ]
           }
         },
-        "counter_SB_CARRY_I1_22": {
+        "counter_SB_CARRY_I1_7": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -10041,19 +10070,19 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 13 ],
+            "CI": [ 5 ],
             "CO": [ 42 ],
             "I0": [ "0" ],
             "I1": [ 44 ]
           }
         },
-        "counter_SB_CARRY_I1_3": {
+        "counter_SB_CARRY_I1_8": {
           "hide_name": 0,
           "type": "SB_CARRY",
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -10063,114 +10092,9 @@
           },
           "connections": {
             "CI": [ 45 ],
-            "CO": [ 38 ],
+            "CO": [ 46 ],
             "I0": [ "0" ],
-            "I1": [ 46 ]
-          }
-        },
-        "counter_SB_CARRY_I1_4": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 47 ],
-            "CO": [ 45 ],
-            "I0": [ "0" ],
-            "I1": [ 48 ]
-          }
-        },
-        "counter_SB_CARRY_I1_5": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 49 ],
-            "CO": [ 47 ],
-            "I0": [ "0" ],
-            "I1": [ 50 ]
-          }
-        },
-        "counter_SB_CARRY_I1_6": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 51 ],
-            "CO": [ 49 ],
-            "I0": [ "0" ],
-            "I1": [ 52 ]
-          }
-        },
-        "counter_SB_CARRY_I1_7": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 10 ],
-            "CO": [ 51 ],
-            "I0": [ "0" ],
-            "I1": [ 53 ]
-          }
-        },
-        "counter_SB_CARRY_I1_8": {
-          "hide_name": 0,
-          "type": "SB_CARRY",
-          "parameters": {
-          },
-          "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
-          },
-          "port_directions": {
-            "CI": "input",
-            "CO": "output",
-            "I0": "input",
-            "I1": "input"
-          },
-          "connections": {
-            "CI": [ 54 ],
-            "CO": [ 55 ],
-            "I0": [ "0" ],
-            "I1": [ 56 ]
+            "I1": [ 47 ]
           }
         },
         "counter_SB_CARRY_I1_9": {
@@ -10179,7 +10103,7 @@
           "parameters": {
           },
           "attributes": {
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4"
           },
           "port_directions": {
             "CI": "input",
@@ -10188,10 +10112,10 @@
             "I1": "input"
           },
           "connections": {
-            "CI": [ 18 ],
-            "CO": [ 54 ],
+            "CI": [ 13 ],
+            "CO": [ 45 ],
             "I0": [ "0" ],
-            "I1": [ 57 ]
+            "I1": [ 48 ]
           }
         },
         "counter_SB_DFF_Q": {
@@ -10201,7 +10125,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10209,9 +10133,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 58 ],
-            "Q": [ 59 ]
+            "C": [ 2 ],
+            "D": [ 49 ],
+            "Q": [ 50 ]
           }
         },
         "counter_SB_DFF_Q_1": {
@@ -10221,7 +10145,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10229,9 +10153,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 60 ],
-            "Q": [ 56 ]
+            "C": [ 2 ],
+            "D": [ 51 ],
+            "Q": [ 47 ]
           }
         },
         "counter_SB_DFF_Q_10": {
@@ -10241,7 +10165,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10249,9 +10173,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 61 ],
-            "Q": [ 33 ]
+            "C": [ 2 ],
+            "D": [ 52 ],
+            "Q": [ 28 ]
           }
         },
         "counter_SB_DFF_Q_11": {
@@ -10261,7 +10185,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10269,9 +10193,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 62 ],
-            "Q": [ 35 ]
+            "C": [ 2 ],
+            "D": [ 53 ],
+            "Q": [ 30 ]
           }
         },
         "counter_SB_DFF_Q_12": {
@@ -10281,7 +10205,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10289,9 +10213,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 63 ],
-            "Q": [ 37 ]
+            "C": [ 2 ],
+            "D": [ 54 ],
+            "Q": [ 32 ]
           }
         },
         "counter_SB_DFF_Q_13": {
@@ -10301,7 +10225,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10309,9 +10233,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 64 ],
-            "Q": [ 41 ]
+            "C": [ 2 ],
+            "D": [ 55 ],
+            "Q": [ 35 ]
           }
         },
         "counter_SB_DFF_Q_14": {
@@ -10321,7 +10245,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10329,9 +10253,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 65 ],
-            "Q": [ 43 ]
+            "C": [ 2 ],
+            "D": [ 56 ],
+            "Q": [ 9 ]
           }
         },
         "counter_SB_DFF_Q_15": {
@@ -10341,7 +10265,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10349,9 +10273,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 66 ],
-            "Q": [ 44 ]
+            "C": [ 2 ],
+            "D": [ 57 ],
+            "Q": [ 11 ]
           }
         },
         "counter_SB_DFF_Q_16": {
@@ -10361,7 +10285,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10369,9 +10293,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 67 ],
-            "Q": [ 14 ]
+            "C": [ 2 ],
+            "D": [ 58 ],
+            "Q": [ 34 ]
           }
         },
         "counter_SB_DFF_Q_17": {
@@ -10381,7 +10305,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10389,9 +10313,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 68 ],
-            "Q": [ 16 ]
+            "C": [ 2 ],
+            "D": [ 59 ],
+            "Q": [ 37 ]
           }
         },
         "counter_SB_DFF_Q_18": {
@@ -10401,7 +10325,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10409,8 +10333,8 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 69 ],
+            "C": [ 2 ],
+            "D": [ 60 ],
             "Q": [ 39 ]
           }
         },
@@ -10421,7 +10345,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10429,9 +10353,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 70 ],
-            "Q": [ 46 ]
+            "C": [ 2 ],
+            "D": [ 61 ],
+            "Q": [ 41 ]
           }
         },
         "counter_SB_DFF_Q_2": {
@@ -10441,7 +10365,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10449,9 +10373,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 71 ],
-            "Q": [ 57 ]
+            "C": [ 2 ],
+            "D": [ 62 ],
+            "Q": [ 48 ]
           }
         },
         "counter_SB_DFF_Q_20": {
@@ -10461,7 +10385,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10469,9 +10393,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 72 ],
-            "Q": [ 48 ]
+            "C": [ 2 ],
+            "D": [ 63 ],
+            "Q": [ 43 ]
           }
         },
         "counter_SB_DFF_Q_21": {
@@ -10481,7 +10405,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10489,9 +10413,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 73 ],
-            "Q": [ 50 ]
+            "C": [ 2 ],
+            "D": [ 64 ],
+            "Q": [ 44 ]
           }
         },
         "counter_SB_DFF_Q_22": {
@@ -10501,7 +10425,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10509,9 +10433,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 74 ],
-            "Q": [ 52 ]
+            "C": [ 2 ],
+            "D": [ 65 ],
+            "Q": [ 6 ]
           }
         },
         "counter_SB_DFF_Q_23": {
@@ -10521,7 +10445,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10529,49 +10453,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 75 ],
-            "Q": [ 53 ]
-          }
-        },
-        "counter_SB_DFF_Q_24": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 76 ],
-            "Q": [ 11 ]
-          }
-        },
-        "counter_SB_DFF_Q_25": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 77 ],
-            "Q": [ 9 ]
+            "C": [ 2 ],
+            "D": [ 66 ],
+            "Q": [ 4 ]
           }
         },
         "counter_SB_DFF_Q_3": {
@@ -10581,7 +10465,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10589,9 +10473,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 78 ],
-            "Q": [ 19 ]
+            "C": [ 2 ],
+            "D": [ 67 ],
+            "Q": [ 14 ]
           }
         },
         "counter_SB_DFF_Q_4": {
@@ -10601,7 +10485,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10609,9 +10493,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 79 ],
-            "Q": [ 21 ]
+            "C": [ 2 ],
+            "D": [ 68 ],
+            "Q": [ 16 ]
           }
         },
         "counter_SB_DFF_Q_5": {
@@ -10621,7 +10505,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10629,9 +10513,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 80 ],
-            "Q": [ 23 ]
+            "C": [ 2 ],
+            "D": [ 69 ],
+            "Q": [ 18 ]
           }
         },
         "counter_SB_DFF_Q_6": {
@@ -10641,7 +10525,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10649,9 +10533,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 81 ],
-            "Q": [ 25 ]
+            "C": [ 2 ],
+            "D": [ 70 ],
+            "Q": [ 20 ]
           }
         },
         "counter_SB_DFF_Q_7": {
@@ -10661,7 +10545,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10669,9 +10553,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 82 ],
-            "Q": [ 27 ]
+            "C": [ 2 ],
+            "D": [ 71 ],
+            "Q": [ 22 ]
           }
         },
         "counter_SB_DFF_Q_8": {
@@ -10681,7 +10565,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10689,9 +10573,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 83 ],
-            "Q": [ 29 ]
+            "C": [ 2 ],
+            "D": [ 72 ],
+            "Q": [ 24 ]
           }
         },
         "counter_SB_DFF_Q_9": {
@@ -10701,7 +10585,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
+            "src": "blinky.v:14.4-17.7|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
           },
           "port_directions": {
             "C": "input",
@@ -10709,9 +10593,9 @@
             "Q": "output"
           },
           "connections": {
-            "C": [ 8 ],
-            "D": [ 84 ],
-            "Q": [ 31 ]
+            "C": [ 2 ],
+            "D": [ 73 ],
+            "Q": [ 26 ]
           }
         },
         "counter_SB_LUT4_I2": {
@@ -10722,7 +10606,32 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 32 ],
+            "I3": [ 31 ],
+            "O": [ 54 ]
+          }
+        },
+        "counter_SB_LUT4_I2_1": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -10735,33 +10644,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ 35 ],
-            "I3": [ 34 ],
-            "O": [ 62 ]
-          }
-        },
-        "counter_SB_LUT4_I2_1": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 37 ],
-            "I3": [ 36 ],
-            "O": [ 63 ]
+            "I3": [ 8 ],
+            "O": [ 55 ]
           }
         },
         "counter_SB_LUT4_I2_10": {
@@ -10772,7 +10656,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -10785,8 +10669,8 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ 50 ],
-            "I3": [ 49 ],
-            "O": [ 73 ]
+            "I3": [ 46 ],
+            "O": [ 49 ]
           }
         },
         "counter_SB_LUT4_I2_11": {
@@ -10797,7 +10681,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -10809,9 +10693,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 52 ],
-            "I3": [ 51 ],
-            "O": [ 74 ]
+            "I2": [ 47 ],
+            "I3": [ 45 ],
+            "O": [ 51 ]
           }
         },
         "counter_SB_LUT4_I2_12": {
@@ -10822,7 +10706,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -10834,9 +10718,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 53 ],
-            "I3": [ 10 ],
-            "O": [ 75 ]
+            "I2": [ 48 ],
+            "I3": [ 13 ],
+            "O": [ 62 ]
           }
         },
         "counter_SB_LUT4_I2_13": {
@@ -10847,382 +10731,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 59 ],
-            "I3": [ 55 ],
-            "O": [ 58 ]
-          }
-        },
-        "counter_SB_LUT4_I2_14": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 56 ],
-            "I3": [ 54 ],
-            "O": [ 60 ]
-          }
-        },
-        "counter_SB_LUT4_I2_15": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 57 ],
-            "I3": [ 18 ],
-            "O": [ 71 ]
-          }
-        },
-        "counter_SB_LUT4_I2_16": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 19 ],
-            "I3": [ 17 ],
-            "O": [ 78 ]
-          }
-        },
-        "counter_SB_LUT4_I2_17": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 21 ],
-            "I3": [ 20 ],
-            "O": [ 79 ]
-          }
-        },
-        "counter_SB_LUT4_I2_18": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 23 ],
-            "I3": [ 22 ],
-            "O": [ 80 ]
-          }
-        },
-        "counter_SB_LUT4_I2_19": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 11 ],
-            "I3": [ 9 ],
-            "O": [ 76 ]
-          }
-        },
-        "counter_SB_LUT4_I2_2": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 41 ],
-            "I3": [ 40 ],
-            "O": [ 64 ]
-          }
-        },
-        "counter_SB_LUT4_I2_20": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 25 ],
-            "I3": [ 24 ],
-            "O": [ 81 ]
-          }
-        },
-        "counter_SB_LUT4_I2_21": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 27 ],
-            "I3": [ 26 ],
-            "O": [ 82 ]
-          }
-        },
-        "counter_SB_LUT4_I2_22": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 29 ],
-            "I3": [ 28 ],
-            "O": [ 83 ]
-          }
-        },
-        "counter_SB_LUT4_I2_23": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 31 ],
-            "I3": [ 30 ],
-            "O": [ 84 ]
-          }
-        },
-        "counter_SB_LUT4_I2_24": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 33 ],
-            "I3": [ 32 ],
-            "O": [ 61 ]
-          }
-        },
-        "counter_SB_LUT4_I2_3": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 43 ],
-            "I3": [ 42 ],
-            "O": [ 65 ]
-          }
-        },
-        "counter_SB_LUT4_I2_4": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 44 ],
-            "I3": [ 13 ],
-            "O": [ 66 ]
-          }
-        },
-        "counter_SB_LUT4_I2_5": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0110100110010110"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11239,7 +10748,7 @@
             "O": [ 67 ]
           }
         },
-        "counter_SB_LUT4_I2_6": {
+        "counter_SB_LUT4_I2_14": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -11247,7 +10756,32 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 6 ],
+            "I3": [ 4 ],
+            "O": [ 65 ]
+          }
+        },
+        "counter_SB_LUT4_I2_15": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11264,7 +10798,7 @@
             "O": [ 68 ]
           }
         },
-        "counter_SB_LUT4_I2_7": {
+        "counter_SB_LUT4_I2_16": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
@@ -11272,7 +10806,282 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 18 ],
+            "I3": [ 17 ],
+            "O": [ 69 ]
+          }
+        },
+        "counter_SB_LUT4_I2_17": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 20 ],
+            "I3": [ 19 ],
+            "O": [ 70 ]
+          }
+        },
+        "counter_SB_LUT4_I2_18": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 22 ],
+            "I3": [ 21 ],
+            "O": [ 71 ]
+          }
+        },
+        "counter_SB_LUT4_I2_19": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 24 ],
+            "I3": [ 23 ],
+            "O": [ 72 ]
+          }
+        },
+        "counter_SB_LUT4_I2_2": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 9 ],
+            "I3": [ 7 ],
+            "O": [ 56 ]
+          }
+        },
+        "counter_SB_LUT4_I2_20": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 26 ],
+            "I3": [ 25 ],
+            "O": [ 73 ]
+          }
+        },
+        "counter_SB_LUT4_I2_21": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 28 ],
+            "I3": [ 27 ],
+            "O": [ 52 ]
+          }
+        },
+        "counter_SB_LUT4_I2_22": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 30 ],
+            "I3": [ 29 ],
+            "O": [ 53 ]
+          }
+        },
+        "counter_SB_LUT4_I2_3": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 11 ],
+            "I3": [ 10 ],
+            "O": [ 57 ]
+          }
+        },
+        "counter_SB_LUT4_I2_4": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 34 ],
+            "I3": [ 33 ],
+            "O": [ 58 ]
+          }
+        },
+        "counter_SB_LUT4_I2_5": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 37 ],
+            "I3": [ 36 ],
+            "O": [ 59 ]
+          }
+        },
+        "counter_SB_LUT4_I2_6": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11286,7 +11095,32 @@
             "I1": [ "0" ],
             "I2": [ 39 ],
             "I3": [ 38 ],
-            "O": [ 69 ]
+            "O": [ 60 ]
+          }
+        },
+        "counter_SB_LUT4_I2_7": {
+          "hide_name": 0,
+          "type": "SB_LUT4",
+          "parameters": {
+            "LUT_INIT": "0110100110010110"
+          },
+          "attributes": {
+            "module_not_derived": "00000000000000000000000000000001",
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+          },
+          "port_directions": {
+            "I0": "input",
+            "I1": "input",
+            "I2": "input",
+            "I3": "input",
+            "O": "output"
+          },
+          "connections": {
+            "I0": [ "0" ],
+            "I1": [ "0" ],
+            "I2": [ 41 ],
+            "I3": [ 40 ],
+            "O": [ 61 ]
           }
         },
         "counter_SB_LUT4_I2_8": {
@@ -11297,7 +11131,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11309,9 +11143,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 46 ],
-            "I3": [ 45 ],
-            "O": [ 70 ]
+            "I2": [ 43 ],
+            "I3": [ 42 ],
+            "O": [ 63 ]
           }
         },
         "counter_SB_LUT4_I2_9": {
@@ -11322,7 +11156,7 @@
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:62.5-70.4|/usr/local/bin/../share/yosys/ice40/cells_map.v:26.33-27.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11334,9 +11168,9 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 48 ],
-            "I3": [ 47 ],
-            "O": [ 72 ]
+            "I2": [ 44 ],
+            "I3": [ 5 ],
+            "O": [ 64 ]
           }
         },
         "counter_SB_LUT4_I3": {
@@ -11360,39 +11194,19 @@
             "I0": [ "0" ],
             "I1": [ "0" ],
             "I2": [ "0" ],
-            "I3": [ 9 ],
-            "O": [ 77 ]
+            "I3": [ 4 ],
+            "O": [ 66 ]
           }
         },
-        "led1_SB_DFF_Q": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 59 ],
-            "Q": [ 3 ]
-          }
-        },
-        "led2_SB_LUT4_O": {
+        "led_SB_LUT4_O": {
           "hide_name": 0,
           "type": "SB_LUT4",
           "parameters": {
-            "LUT_INIT": "0000111111110000"
+            "LUT_INIT": "0000000011111111"
           },
           "attributes": {
             "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/local/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
+            "src": "/usr/local/bin/../share/yosys/ice40/cells_map.v:12.34-13.52"
           },
           "port_directions": {
             "I0": "input",
@@ -11404,175 +11218,13 @@
           "connections": {
             "I0": [ "0" ],
             "I1": [ "0" ],
-            "I2": [ 85 ],
-            "I3": [ 3 ],
-            "O": [ 4 ]
-          }
-        },
-        "led3_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000111111110000"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/local/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 86 ],
-            "I3": [ 85 ],
-            "O": [ 5 ]
-          }
-        },
-        "led4_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000111111110000"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/local/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 87 ],
-            "I3": [ 86 ],
-            "O": [ 6 ]
-          }
-        },
-        "led5_SB_LUT4_O": {
-          "hide_name": 0,
-          "type": "SB_LUT4",
-          "parameters": {
-            "LUT_INIT": "0000111111110000"
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "/usr/local/bin/../share/yosys/ice40/cells_map.v:17.34-18.52"
-          },
-          "port_directions": {
-            "I0": "input",
-            "I1": "input",
-            "I2": "input",
-            "I3": "input",
-            "O": "output"
-          },
-          "connections": {
-            "I0": [ "0" ],
-            "I1": [ "0" ],
-            "I2": [ 88 ],
-            "I3": [ 87 ],
-            "O": [ 7 ]
-          }
-        },
-        "outcnt_SB_DFF_Q": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 56 ],
-            "Q": [ 85 ]
-          }
-        },
-        "outcnt_SB_DFF_Q_1": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 57 ],
-            "Q": [ 86 ]
-          }
-        },
-        "outcnt_SB_DFF_Q_2": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 19 ],
-            "Q": [ 87 ]
-          }
-        },
-        "outcnt_SB_DFF_Q_3": {
-          "hide_name": 0,
-          "type": "SB_DFF",
-          "parameters": {
-          },
-          "attributes": {
-            "module_not_derived": "00000000000000000000000000000001",
-            "src": "blinky.v:21.5-24.8|/usr/local/bin/../share/yosys/ice40/ff_map.v:2.51-2.90"
-          },
-          "port_directions": {
-            "C": "input",
-            "D": "input",
-            "Q": "output"
-          },
-          "connections": {
-            "C": [ 8 ],
-            "D": [ 21 ],
-            "Q": [ 88 ]
+            "I2": [ "0" ],
+            "I3": [ 50 ],
+            "O": [ 3 ]
           }
         }
       },
       "netnames": {
-        "clk": {
-          "hide_name": 0,
-          "bits": [ 8 ],
-          "attributes": {
-            "src": "blinky.v:12.31-12.34"
-          }
-        },
         "clki": {
           "hide_name": 0,
           "bits": [ 2 ],
@@ -11582,67 +11234,35 @@
         },
         "counter": {
           "hide_name": 0,
-          "bits": [ 9, 11, 53, 52, 50, 48, 46, 39, 16, 14, 44, 43, 41, 37, 35, 33, 31, 29, 27, 25, 23, 21, 19, 57, 56, 59 ],
+          "bits": [ 4, 6, 44, 43, 41, 39, 37, 34, 11, 9, 35, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 48, 47, 50, 74, 75 ],
           "attributes": {
-            "src": "blinky.v:18.30-18.37"
+            "src": "blinky.v:6.16-6.23",
+            "unused_bits": "24 25"
           }
         },
         "counter_SB_CARRY_CI_CO": {
           "hide_name": 0,
-          "bits": [ "0", 9, 10, 51, 49, 47, 45, 38, 15, 12, 13, 42, 40, 36, 34, 32, 30, 28, 26, 24, 22, 20, 17, 18, 54, 55 ],
+          "bits": [ "0", 4, 5, 42, 40, 38, 36, 33, 10, 7, 8, 31, 29, 27, 25, 23, 21, 19, 17, 15, 12, 13, 45, 46, 76, 77 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:51.21-51.22"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:51.21-51.22",
+            "unused_bits": "24 25"
           }
         },
         "counter_SB_DFF_Q_D": {
           "hide_name": 0,
-          "bits": [ 77, 76, 75, 74, 73, 72, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 84, 83, 82, 81, 80, 79, 78, 71, 60, 58 ],
+          "bits": [ 66, 65, 64, 63, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 73, 72, 71, 70, 69, 68, 67, 62, 51, 49, 78, 79 ],
           "attributes": {
             "force_downto": "00000000000000000000000000000001",
-            "src": "blinky.v:22.20-22.31|/usr/local/bin/../share/yosys/ice40/arith_map.v:33.26-33.27"
+            "src": "blinky.v:16.18-16.29|/usr/local/bin/../share/yosys/ice40/arith_map.v:33.26-33.27",
+            "unused_bits": "24 25"
           }
         },
-        "led1": {
+        "led": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "blinky.v:3.12-3.16"
-          }
-        },
-        "led2": {
-          "hide_name": 0,
-          "bits": [ 4 ],
-          "attributes": {
-            "src": "blinky.v:4.12-4.16"
-          }
-        },
-        "led3": {
-          "hide_name": 0,
-          "bits": [ 5 ],
-          "attributes": {
-            "src": "blinky.v:5.12-5.16"
-          }
-        },
-        "led4": {
-          "hide_name": 0,
-          "bits": [ 6 ],
-          "attributes": {
-            "src": "blinky.v:6.12-6.16"
-          }
-        },
-        "led5": {
-          "hide_name": 0,
-          "bits": [ 7 ],
-          "attributes": {
-            "src": "blinky.v:7.12-7.16"
-          }
-        },
-        "outcnt": {
-          "hide_name": 0,
-          "bits": [ 88, 87, 86, 85, 3 ],
-          "attributes": {
-            "src": "blinky.v:19.20-19.26"
+            "src": "blinky.v:3.12-3.15"
           }
         }
       }

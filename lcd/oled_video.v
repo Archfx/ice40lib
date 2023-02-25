@@ -22,7 +22,7 @@ module oled_video #(
   output wire oled_resn
 );
   localparam C_color_bits = 16;
-  localparam C_x_size = 128;  // pixel X screen size
+  localparam C_x_size = 80;  // pixel X screen size
   localparam C_y_size = 160;  // pixel Y screen size
   localparam C_x_bits = $clog2(C_x_size); 
   localparam C_y_bits = $clog2(C_y_size);
@@ -34,7 +34,7 @@ module oled_video #(
     $readmemh(C_init_file, C_oled_init);
   end
 
-  reg [1:0]  reset_cnt;
+  reg [1:0]  reset_cnt = 0;
   reg [10:0] init_cnt;
   reg [7:0]  data;
   reg dc;
@@ -45,9 +45,16 @@ module oled_video #(
   reg [5:0] arg;
   reg delay_set = 0;
   reg [7:0] last_cmd;
+
+
+  initial begin
+      delay_cnt =25'h1FFFFFF;
+      reset_cnt = 0;
+      init = 1;
+  end
   
   assign oled_resn = ~reset_cnt[0]; // Reset is High, Low, High for first 3 cycles
-  assign oled_csn = reset_cnt[0];
+  assign oled_csn = reset_cnt[1];
   assign oled_dc = dc;              // 0 for commands, 1 for command parameters and data
   assign oled_clk = init_cnt[0];    // SPI Mode 0
   assign oled_mosi = data[7];       // Shift out data

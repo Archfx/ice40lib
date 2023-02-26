@@ -1,1 +1,1 @@
-riscv_logo.hex
+mandelbrot_terminal.hex

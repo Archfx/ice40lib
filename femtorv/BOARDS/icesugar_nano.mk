@@ -4,7 +4,7 @@ NEXTPNR_ICESUGAR_NANO_OPT=--force --json $(PROJECTNAME).json --pcf BOARDS/icesug
 
 #######################################################################################################################
 
-ICESUGAR_NANO:  ICESUGAR_NANO.synth #ICESUGAR_NANO.firmware_config
+ICESUGAR_NANO: ICESUGAR_NANO.firmware_config ICESUGAR_NANO.synth
 
 ICESUGAR_NANO.synth: FIRMWARE/firmware.hex 
 	TOOLS/make_config.sh -DICE_SUGAR_NANO

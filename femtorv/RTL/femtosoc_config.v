@@ -2,33 +2,33 @@
 
 `define NRV_FEMTORV32_QUARK
 
-`ifdef BENCH_VERILATOR
-`define BENCH
-`endif
+// `ifdef BENCH_VERILATOR
+// `define BENCH
+// `endif
 
-`ifdef ULX3S
-`include "CONFIGS/ulx3s_config.v"
-`endif
+// `ifdef ULX3S
+// `include "CONFIGS/ulx3s_config.v"
+// `endif
 
-`ifdef ICE_STICK
-`include "CONFIGS/icestick_config.v"
-`endif
+// `ifdef ICE_STICK
+// `include "CONFIGS/icestick_config.v"
+// `endif
 
-`ifdef ICE_BREAKER
-`include "CONFIGS/icebreaker_config.v"
-`endif
+// `ifdef ICE_BREAKER
+// `include "CONFIGS/icebreaker_config.v"
+// `endif
 
-`ifdef ECP5_EVN
-`include "CONFIGS/ecp5evn_config.v"
-`endif
+// `ifdef ECP5_EVN
+// `include "CONFIGS/ecp5evn_config.v"
+// `endif
 
-`ifdef ARTY
-`include "CONFIGS/arty_config.v"
-`endif
+// `ifdef ARTY
+// `include "CONFIGS/arty_config.v"
+// `endif
 
-`ifdef BENCH_VERILATOR
-`include "CONFIGS/bench_config.v"
-`endif
+// `ifdef BENCH_VERILATOR
+// `include "CONFIGS/bench_config.v"
+// `endif
 
 `ifndef NRV_CONFIGURED
 `include "CONFIGS/generic_config.v"
@@ -68,21 +68,21 @@
 // Toggle FPGA defines (ICE40, ECP5) in function of board defines (ICE_STICK, ECP5_EVN)
 // Board defines are set in Makefile.
 
-`ifdef ICE_STICK
- `define ICE40
-`endif
+// `ifdef ICE_STICK
+//  `define ICE40
+// `endif
 
-`ifdef ICE_BREAKER
- `define ICE40
-`endif
+// `ifdef ICE_BREAKER
+//  `define ICE40
+// `endif
 
-`ifdef ICE_FEATHER
- `define ICE40
-`endif
+// `ifdef ICE_FEATHER
+//  `define ICE40
+// `endif
 
-`ifdef ICE_SUGAR
- `define ICE40
-`endif
+// `ifdef ICE_SUGAR
+//  `define ICE40
+// `endif
 
 `ifdef ICE_SUGAR_NANO
  `define ICE40

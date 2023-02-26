@@ -95,11 +95,6 @@ module femtosoc(
 
 /********************* Technicalities **************************************/
    
-// On the ULX3S, deactivate the ESP32 so that it does not interfere with 
-// the other devices (especially the SDCard).
-`ifdef ULX3S
-   assign wifi_en = 1'b0;
-`endif		
 
 // On the ULX3S, the CLK pin of the SPI is multiplexed with the ESP32.
 // It can be accessed using the USRMCLK primitive of the ECP5

@@ -1,1 +1,0 @@
-mandelbrot_terminal.hex

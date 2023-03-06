@@ -155,7 +155,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
 
       9'd360 : begin // 10us delay
          enable <= 1;
-         spi_cs <= 1; //set mosi as "command"
+         // spi_cs <= 1; //set mosi as "command"
          // spi_cs <= 1;
       end
       endcase
@@ -209,7 +209,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_SWRESET : begin
          counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/12)) begin //wait 150ms
+         if(counter_send_interval == (24'd450000)) begin //FREQ_TARGET_SPI_HZ/12)) begin //wait 150ms
             state <= STATE_SEND_SLPOUT;
             current_byte_pos <= 7;
          end
@@ -225,7 +225,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_SLPOUT : begin
          counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/4)) begin //wait 500ms
+         if(counter_send_interval == (24'd1500000)) begin //FREQ_TARGET_SPI_HZ/4)) begin //wait 500ms
             state <= STATE_SEND_INVCTR;
             counter_current_param <= 0;
             current_byte_pos <= 7;

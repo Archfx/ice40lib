@@ -1,7 +1,7 @@
 set_io clk D1
-set_io spi_ss C6 
+set_io spi_cs C6 
 set_io spi_clk A1
 set_io spi_mosi E3
-set_io spi_d_c C2
+set_io spi_dc C2
 set_io reset B1
 

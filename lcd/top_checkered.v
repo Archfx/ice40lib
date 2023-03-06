@@ -4,13 +4,15 @@ module top_checkered (
     output wire oled_clk,
     output wire oled_mosi,
     output wire oled_dc,
-    output wire oled_resn
+    output wire oled_resn,
+    output wire led
 );
     //                  checkered      red   green      blue     red       green blue
     wire [15:0] color = x[3] ^ y[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
     wire [6:0] x;
     wire [7:0] y;
-    
+
+    assign led = oled_resn;
     oled_video #(
         .C_init_file("st7735_init.mem"),
         .C_init_size(110)

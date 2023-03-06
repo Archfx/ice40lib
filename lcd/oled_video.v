@@ -1,7 +1,3 @@
-// SPI ST7735 display video XY scan core
-// AUTHORS=EMARD,MMICKO and Lawrie Griffiths
-// LICENSE=BSD
-
 module oled_video #(
   // file name is relative to directory path in which verilog compiler is running
   // screen can be also XY flipped and/or rotated from this init file
@@ -22,8 +18,8 @@ module oled_video #(
   output wire oled_resn
 );
   localparam C_color_bits = 16;
-  localparam C_x_size = 80;  // pixel X screen size
-  localparam C_y_size = 160;  // pixel Y screen size
+  localparam C_x_size = 160;  // pixel X screen size
+  localparam C_y_size = 80;  // pixel Y screen size
   localparam C_x_bits = $clog2(C_x_size); 
   localparam C_y_bits = $clog2(C_y_size);
 
@@ -34,27 +30,34 @@ module oled_video #(
     $readmemh(C_init_file, C_oled_init);
   end
 
-  reg [1:0]  reset_cnt = 0;
+
+  reg [1:0]  reset_cnt;
   reg [10:0] init_cnt;
   reg [7:0]  data;
   reg dc;
   reg byte_toggle; // alternates data byte for 16-bit mode
-  reg init = 1;
+  reg init ;
   reg [4:0] num_args;
   reg [24:0] delay_cnt;
   reg [5:0] arg;
-  reg delay_set = 0;
+  reg delay_set;
   reg [7:0] last_cmd;
 
-
   initial begin
-      delay_cnt =25'h1FFFFFF;
-      reset_cnt = 0;
-      init = 1;
+    reset_cnt = 0;
+    init_cnt = 0;
+    data = 0 ;
+    dc = 0;
+    byte_toggle = 0; // alternates data byte for 16-bit mode
+    init = 1;
+    num_args = 0;
+    delay_cnt = 0;
+    arg=0;
+    delay_set = 0;
   end
   
   assign oled_resn = ~reset_cnt[0]; // Reset is High, Low, High for first 3 cycles
-  assign oled_csn = reset_cnt[1];
+  assign oled_csn = reset_cnt[0];
   assign oled_dc = dc;              // 0 for commands, 1 for command parameters and data
   assign oled_clk = init_cnt[0];    // SPI Mode 0
   assign oled_mosi = data[7];       // Shift out data

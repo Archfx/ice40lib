@@ -9,60 +9,60 @@ B4
 // FRMCTR1
 B1
 03
-00
-3F
-3F
+01
+2C
+2D
 // FRMCTR2
 B2
 03
-0F
 01
-01
+2C
+2D
 // FRMCTR3
 B3
 06
-05
-3C
-3C
-05
-3C
-3C
+01
+2C
+2D
+01
+2C
+2D
 // PWCTR1
 C0
 03
-FC
-08
+A2
 02
+84
 // PWCTR2
 C1
 01
-C0
+C5
 // PWCTR3
 C2
 02
-0D
+0A
 00
 // PWCTR4
 C3
 02
-8D
+8A
 2A
 // PWCTR5
 C4
 02
-8D
+8A
 EE
 // VMCTR1
 C5
 01
-0F
+0E
 // INVOFF
 20
 00
 // MADCTL
 36
 01
-60
+44
 // COLMOD
 3A
 01
@@ -77,7 +77,7 @@ E0
 37
 32
 29
-2C
+2D
 29
 25
 2B
@@ -96,7 +96,7 @@ E1
 2E
 2C
 29
-2C
+2D
 2E
 2E
 37
@@ -116,17 +116,16 @@ B4
 2A
 04
 00
-00
+02
 00
 50
 // RASET
 2B
 04
 00
-00
+01
 00
 A0
 // RAMWR
 2C
 00
-

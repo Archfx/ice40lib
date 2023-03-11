@@ -9,7 +9,8 @@ Content
 ======
 
 1. [blinky](/blinky/) : LED blink example 
-2. [lcd](/lcd/) : Driver for PMOD LCD ([based st7735 IP](https://github.com/lawrie/ulx3s_examples))-WIP
+2. [lcd](/lcd/) : Examples for PMOD 0.96in LCD
+2. [st7735](/st7736/) : Driver for PMOD 0.96in LCD
 
 
 

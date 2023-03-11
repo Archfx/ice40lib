@@ -27,6 +27,9 @@ module st7735(
    parameter SCREEN_WIDTH = 160; //pixel size displayed on screen
    parameter SCREEN_HEIGHT = 80; //pixel size displayed on screen
 
+   // parameter SCREEN_WIDTH = 80; //pixel size displayed on screen
+   // parameter SCREEN_HEIGHT = 160; //pixel size displayed on screen
+
    
    reg [3:0] clk_counter_tx;
    reg [24:0] counter_send_interval; //to wait between the commands
@@ -91,14 +94,14 @@ module st7735(
    parameter [7:0] CMD_PARAM1_CASET = 8'h00;
    parameter [7:0] CMD_PARAM2_CASET = 8'h1A;
    parameter [7:0] CMD_PARAM3_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_CASET = 8'h6A;//8'h81;
+   parameter [7:0] CMD_PARAM4_CASET = 8'h6A;
    //start and end of row position to draw on the screen
    //the drawable area is starting at 0
    parameter [7:0] CMD_RASET = 8'h2B;
    parameter [7:0] CMD_PARAM1_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_RASET = 8'h01;
+   parameter [7:0] CMD_PARAM2_RASET = 8'h01;//01;
    parameter [7:0] CMD_PARAM3_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_RASET = 8'hA2;//9F;//8'h82;
+   parameter [7:0] CMD_PARAM4_RASET = 8'hA2;
 
    parameter [7:0] CMD_NORON = 8'h13;
    

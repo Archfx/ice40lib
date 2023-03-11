@@ -7,8 +7,24 @@ module top_checkered (
     output wire reset
 );
     //                  checkered      red   green      blue     red       green blue
-    wire [15:0] color = x[3] ^ y[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
-    // wire [15:0] color = x[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
+    wire [15:0] pattern1 = x[3] ^ y[2] ? {5'd0, 6'b111111, 5'd0} : {5'd0, 6'd0, 5'b11111};
+    wire [15:0] pattern2 = x[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
+    // wire [15:0] pattern3 = x[3] ^ y[2] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
+    // wire [15:0] pattern4 = x[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
+
+    wire [15:0] color = (switch<24'h5B8D80) ? pattern1 : pattern2;
+
+    reg [23:0] switch;
+
+    initial begin
+        switch = 0;
+    end
+
+    always @(posedge clk) begin
+        switch= switch + 1 ;
+        
+    end
+
 
     wire [7:0] x;
     wire [6:0] y;

@@ -1,6 +1,0 @@
-set_io clki D1
-set_io oled_csn C6 
-set_io oled_clk A1
-set_io oled_mosi E3
-set_io oled_dc C2
-set_io oled_resn B1

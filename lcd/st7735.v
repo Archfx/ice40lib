@@ -1,7 +1,6 @@
 //the state machine will first send the init commands to set up the screen, then it will be
 //stuck in the send pixels mode and wait the pixels from the outside to send to the screen one by one
-// module ST7735(input clk, input [15:0] pixel_write, input wr_en, output reg buffer_free, output reg is_init,
-//             output reg oled_clk, output reg oled_mosi, output reg oled_dc, output reg oled_cs, input wire enable);
+
 
 // time delay values calculated correctly. Look at the adafruit library for specific configurations
 

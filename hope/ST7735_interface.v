@@ -66,13 +66,18 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    parameter [7:0] CMD_PARAM_MADCTL = 8'hC8;
    parameter [7:0] CMD_COLMOD = 8'h3A;
    parameter [7:0] CMD_PARAM_COLMOD = 8'h05;
+
+   // x  Top left corner x coordinate
+   // y  Top left corner x coordinate
+   // w  Width of window
+   // h  Height of window
    
    parameter [7:0] CMD_CASET = 8'h2A;
    //start and end of column position to draw on the screen
    //the drawable area is starting at 0 // Rmcd2green160x80 from Adafruit library
    parameter [7:0] CMD_PARAM1_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM3_CASET = 8'h00;
+   parameter [7:0] CMD_PARAM2_CASET = 8'h18;
+   parameter [7:0] CMD_PARAM3_CASET = 8'h18;
    parameter [7:0] CMD_PARAM4_CASET = 8'h4F;//8'h81;
    //start and end of row position to draw on the screen
    //the drawable area is starting at 0
@@ -145,11 +150,11 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
 
       state = STATE_SEND_SWRESET;
 
-      reset = 1;
+      reset = 0;
       spi_dc = 0;
       spi_cs = 1;
 
-      pixel_write = 16'h8888;
+      pixel_write = 16'h4444;
       wr_en = 1;
    end
 
@@ -165,32 +170,6 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end else begin
          enable <= 1;
       end
-
-      // if (delay_counter < 16'd60000) begin
-      //    delay_counter <= delay_counter + 16'd1;  
-      // end
-      
-
-      // case(delay_counter)
-
-      // 16'd120 : begin // 10us delay
-      //    reset <= 0;
-         
-      // end
-
-      // 16'd240 : begin // 10us delay
-      //    reset <= 1;
-   
-         
-      // end
-
-      // 16'd60240 : begin // 5ms delay
-      //    enable <= 1;
-      //    // spi_cs <= 1; //set mosi as "command"
-      //    // spi_cs <= 1;
-      // end
-      // endcase
-   
       
    end
 
@@ -223,8 +202,8 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
 
    always @(negedge spi_clk)
    begin
-      
-      // spi_cs <= 1;
+      spi_dc <= 0; //set mosi as "command"
+      spi_cs <= 1;
 
       current_byte_pos <= current_byte_pos-1;
 
@@ -240,8 +219,6 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_SWRESET : begin
          counter_send_interval <= counter_send_interval + 1;
-         spi_cs <= 1;
-         // if(counter_send_interval == CMD_SWRESET_DELAY) begin //FREQ_TARGET_SPI_HZ/12)) begin //wait 150ms
          if(counter_send_interval == (FREQ_TARGET_SPI_HZ/12)) begin //wait 150ms
             state <= STATE_SEND_SLPOUT;
             current_byte_pos <= 7;
@@ -258,9 +235,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_SLPOUT : begin
          counter_send_interval <= counter_send_interval + 1;
-         spi_cs <= 1;
-         // if(counter_send_interval == CMD_SLPOUT_DELAY) begin //FREQ_TARGET_SPI_HZ/4)) begin //wait 500ms
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/4)) begin //wait 500m
+         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/4)) begin //wait 500ms
             state <= STATE_SEND_INVCTR;
             counter_current_param <= 0;
             current_byte_pos <= 7;
@@ -532,8 +507,6 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_NORON : begin
          counter_send_interval <= counter_send_interval + 1;
-         spi_cs <= 1;
-         // if(counter_send_interval == CMD_NORON_DELAY) begin //wait 10ms
          if(counter_send_interval == (FREQ_TARGET_SPI_HZ/200)) begin //wait 10ms
             state <= STATE_SEND_DISPON;
             counter_current_param <= 0;
@@ -551,11 +524,8 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       STATE_INTERVAL_DISPON : begin
          counter_send_interval <= counter_send_interval + 1;
-         spi_cs <= 1;
-         // if(counter_send_interval == CMD_DISPON_DELAY) begin //wait 100ms
          if(counter_send_interval == (FREQ_TARGET_SPI_HZ/20)) begin //wait 100ms
             state <= STATE_SEND_RAMWR_INIT;
-            state <= STATE_FRAME_INIT;
             counter_current_param <= 0;
             current_byte_pos <= 7;
          end
@@ -570,9 +540,9 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
          end
       end
 
-      //will fill the framebuffer in the ST7735 as completely white
+      //will fill the framebuffer in the ST7735 as completely black
       //the ST7735 has more memory (131x131) as it is displayed, but we
-      //fill it with white pixels
+      //fill it with black pixels
       STATE_FRAME_INIT: begin
          spi_cs <= 0;
          if(current_byte_pos == 0) begin
@@ -585,7 +555,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
             end
          end
          spi_dc <= 1; //set mosi as "data"
-         spi_mosi <= 1; //white
+         spi_mosi <= 0; //black
       end
 
       STATE_SEND_RAMWR: begin
@@ -613,7 +583,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
 
             current_byte_pos <= 15;
             current_pixel <= current_pixel + 1;
-            if(current_pixel == SCREEN_WIDTH*SCREEN_HEIGHT-1) begin //image finished
+            if(current_pixel == (SCREEN_WIDTH)*(SCREEN_HEIGHT)-1) begin //image finished
                current_pixel <= 0;
                state <= STATE_SEND_RAMWR; //send a new frame
                reg_valid <= 1;
@@ -629,5 +599,4 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       end
       endcase
    end
-
 endmodule

@@ -1,8 +1,7 @@
-set_io clk_24mhz D1
-set_io SCE C6 
-set_io SCLK A1
-set_io MOSI E3
-set_io D_C C2
-set_io RST B1
+set_io clk D1
+set_io spi_cs B4 
+set_io spi_clk B1
+set_io spi_mosi B5
+set_io spi_dc E1
+set_io reset A1
 
-set_io led_out B6

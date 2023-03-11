@@ -1,4 +1,4 @@
-yosys -p 'synth_ice40 -top top -json st7735.json' top.v 
+yosys -p 'synth_ice40 -top ST7735 -json st7735.json' ST7735.v
 
 nextpnr-ice40 --lp1k --json st7735.json --pcf lcd.pcf --asc st7735.asc --package cm36
 

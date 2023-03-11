@@ -15,7 +15,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    parameter SCREEN_HEIGHT = 80; //pixel size displayed on screen
 
    
-   reg [24:0] clk_counter_tx;
+   reg [3:0] clk_counter_tx;
    reg [24:0] counter_send_interval; //to wait between the commands
    reg [7:0] counter_current_param;
 
@@ -34,8 +34,8 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
              STATE_SEND_CMD_PWCTR1=STATE_SEND_INVCTR_PARAM+1, STATE_SEND_PWCTR1_PARAMS=STATE_SEND_CMD_PWCTR1+1,
              STATE_SEND_CMD_PWCTR4=STATE_SEND_PWCTR1_PARAMS+1, STATE_SEND_PWCTR4_PARAMS=STATE_SEND_CMD_PWCTR4+1, STATE_SEND_CMD_PWCTR5=STATE_SEND_PWCTR4_PARAMS+1, STATE_SEND_PWCTR5_PARAMS=STATE_SEND_CMD_PWCTR5+1,
              STATE_SEND_CMD_VMCTR1=STATE_SEND_PWCTR5_PARAMS+1, STATE_SEND_VMCTR1_PARAM=STATE_SEND_CMD_VMCTR1+1,
-             STATE_SEND_CMD_INVOFF=STATE_SEND_VMCTR1_PARAM+1,
-             STATE_SEND_CMD_MADCTL=STATE_SEND_CMD_INVOFF+1, STATE_SEND_MADCTL_PARAM=STATE_SEND_CMD_MADCTL+1,
+             STATE_SEND_CMD_INVON=STATE_SEND_VMCTR1_PARAM+1,
+             STATE_SEND_CMD_MADCTL=STATE_SEND_CMD_INVON+1, STATE_SEND_MADCTL_PARAM=STATE_SEND_CMD_MADCTL+1,
              STATE_SEND_CMD_COLMOD=STATE_SEND_MADCTL_PARAM+1, STATE_SEND_COLMOD_PARAM=STATE_SEND_CMD_COLMOD+1,
              STATE_SEND_CMD_CASET=STATE_SEND_COLMOD_PARAM+1, STATE_SEND_CASET_PARAMS=STATE_SEND_CMD_CASET+1, STATE_SEND_CMD_RASET=STATE_SEND_CASET_PARAMS+1, STATE_SEND_RASET_PARAMS=STATE_SEND_CMD_RASET+1,
              STATE_SEND_NORON=STATE_SEND_RASET_PARAMS+1, STATE_INTERVAL_NORON=STATE_SEND_NORON+1,
@@ -61,7 +61,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    parameter [7:0] CMD_PARAM2_PWCTR5 = 8'hEE;//8'hAA;
    parameter [7:0] CMD_VMCTR1 = 8'hC5;
    parameter [7:0] CMD_PARAM_VMCTR1 = 8'h0E; 
-   parameter [7:0] CMD_INVOFF = 8'h20;
+   parameter [7:0] CMD_INVON = 8'h21;
    parameter [7:0] CMD_MADCTL = 8'h36;
    parameter [7:0] CMD_PARAM_MADCTL = 8'hC8;
    parameter [7:0] CMD_COLMOD = 8'h3A;
@@ -76,16 +76,16 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    //start and end of column position to draw on the screen
    //the drawable area is starting at 0 // Rmcd2green160x80 from Adafruit library
    parameter [7:0] CMD_PARAM1_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_CASET = 8'h18;
-   parameter [7:0] CMD_PARAM3_CASET = 8'h18;
-   parameter [7:0] CMD_PARAM4_CASET = 8'h4F;//8'h81;
+   parameter [7:0] CMD_PARAM2_CASET = 8'h1A;
+   parameter [7:0] CMD_PARAM3_CASET = 8'h00;
+   parameter [7:0] CMD_PARAM4_CASET = 8'h6A;//8'h81;
    //start and end of row position to draw on the screen
    //the drawable area is starting at 0
    parameter [7:0] CMD_RASET = 8'h2B;
    parameter [7:0] CMD_PARAM1_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_RASET = 8'h00;
+   parameter [7:0] CMD_PARAM2_RASET = 8'h01;
    parameter [7:0] CMD_PARAM3_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_RASET = 8'h9F;//8'h82;
+   parameter [7:0] CMD_PARAM4_RASET = 8'hA2;//9F;//8'h82;
 
    parameter [7:0] CMD_NORON = 8'h13;
    
@@ -94,22 +94,13 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    parameter [7:0] CMD_RAMWR = 8'h2C;
    reg reg_valid;
 
-   // All delays
-   // parameter CMD_SWRESET_DELAY = 450000; //150ms delay (150*3000)
-   // parameter CMD_SLPOUT_DELAY = 765000; //255ms delay
-   // parameter CMD_NORON_DELAY = 30000; //10ms delay
-   // parameter CMD_DISPON_DELAY = 300000; //100ms delay
+
 
    parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
    parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
    parameter CMD_NORON_DELAY = 20000; //10ms delay
    parameter CMD_DISPON_DELAY = 200000; //100ms delay
 
-   //for vcd
-   // parameter CMD_SWRESET_DELAY = 450; //150ms delay (150*3000)
-   // parameter CMD_SLPOUT_DELAY = 765; //255ms delay
-   // parameter CMD_NORON_DELAY = 30; //10ms delay
-   // parameter CMD_DISPON_DELAY = 300; //100ms delay
 
    reg [23:0] delay_counter;
    reg is_init;
@@ -154,7 +145,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
       spi_dc = 0;
       spi_cs = 1;
 
-      pixel_write = 16'h4444;
+      pixel_write = 16'hffff;
       wr_en = 1;
    end
 
@@ -365,14 +356,14 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
          spi_dc <= 1; //params are seen as data
          spi_mosi <= CMD_PARAM_VMCTR1[current_byte_pos];
          if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_INVOFF;
+            state <= STATE_SEND_CMD_INVON;
             current_byte_pos <= 7;
             counter_send_interval <= 0;
          end
       end
-      STATE_SEND_CMD_INVOFF: begin
+      STATE_SEND_CMD_INVON: begin
          spi_cs <= 0;
-         spi_mosi <= CMD_INVOFF[current_byte_pos];
+         spi_mosi <= CMD_INVON[current_byte_pos];
          if(current_byte_pos == 0) begin
             state <= STATE_SEND_CMD_MADCTL;
             current_byte_pos <= 7;

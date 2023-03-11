@@ -1,7 +1,7 @@
-# iCE40lib : FPGA pheripheral Library 
+# iCE40lib : FPGA peripheral Library 
 
-This repository contains various pheripheral drivers written in verilog for open source ICE40 FPGAs.
-iCESuger nano FPGA ships with several PMOD accessories. This repository contains verilog IPs to work with them.
+This repository contains various peripheral drivers written in Verilog for open-source ICE40 FPGAs.
+iCESuger nano FPGA ships with several PMOD accessories. This repository contains Verilog IPs to work with them.
 
 <img src="/images/ice40.jpeg" alt="docker" width="200" align="right">
 
@@ -16,10 +16,8 @@ Content
 
 
 Build
-======
-
-Yosys tool chain is required to build the binary files.
-For this you can use the following docker container with all the dependencies
+Yosys toolchain is required to build the binary files.
+For this, you can use the following docker container with all the dependencies
 
 <p align="center">
   <img src="https://dockerico.blankenship.io/image/archfx/ice40tools" alt="Sublime's custom image"/>
@@ -29,7 +27,7 @@ For this you can use the following docker container with all the dependencies
 
 <!-- [![dockeri.co](https://dockerico.blankenship.io/image/archfx/yosystools)](https://hub.docker.com/r/archfx/yosystools) -->
 
-Follow the steps to build usign the docker environemt. (You should have the docker deamon installed on your system)
+Follow the steps to build using the docker environment. (You should have the docker daemon installed on your system)
 
 1. Clone the repository
 

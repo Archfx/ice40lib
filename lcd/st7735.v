@@ -34,7 +34,7 @@ module st7735(
    reg [7:0] counter_current_param;
 
    reg [4:0] current_byte_pos;
-   // reg [19:0] current_pixel;
+   reg [19:0] current_pixel;
 
    reg [15:0] buffer_pixel_write;
 
@@ -110,20 +110,26 @@ module st7735(
 
 
 
-   // parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
-   // parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
-   // parameter CMD_NORON_DELAY = 20000; //10ms delay
-   // parameter CMD_DISPON_DELAY = 200000; //100ms delay
+   parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
+   parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
+   parameter CMD_NORON_DELAY = 20000; //10ms delay
+   parameter CMD_DISPON_DELAY = 200000; //100ms delay
 
 
    reg [23:0] delay_counter;
    reg is_init;
 
    reg buffer_free;
+   wire [15:0] pixel_write;
    reg wr_en;
    reg enable;
 
-   assign pixel_write   = color;
+   assign pixel_write = color;
+
+   // assign x = current_pixel/SCREEN_WIDTH;
+   // assign y = current_pixel%SCREEN_WIDTH;
+
+
    initial begin
       clk_counter_tx = 0;
 
@@ -141,7 +147,7 @@ module st7735(
 
       // read_reg = 0;
       reg_valid = 0;
-      buffer_pixel_write = 0;
+      buffer_pixel_write = 16'hffff;
 
       is_init = 0;
       next_pixel = 0;
@@ -162,6 +168,7 @@ module st7735(
       oled_dc = 0;
       oled_cs = 1;
 
+      // pixel_write = 16'hffff;
       wr_en = 1;
    end
 
@@ -193,10 +200,17 @@ module st7735(
          oled_clk <= ~oled_clk;
       end
 
+      
+      if (is_init) buffer_pixel_write <= pixel_write;
+      else buffer_pixel_write <= 16'hffff;
+
+      
+
       //read pixel, will be consumed by the SPI state machine
       if(wr_en == 1) begin
-         // buffer_pixel_write <= color;
-         buffer_pixel_write <= 16'hffff;
+         // buffer_pixel_write <= pixel_write;
+         // buffer_pixel_write <= 16'hffff;
+
          buffer_free <= 0;
       end
 
@@ -550,35 +564,34 @@ module st7735(
       end
 
       
-      //fill the display with pixels
+      //fill the display with black pixels
       STATE_FRAME_INIT: begin
          oled_cs <= 0;
          if(current_byte_pos == 0) begin
             current_byte_pos <= 15;
             // current_pixel <= current_pixel + 1;
 
-
-            if (x < SCREEN_WIDTH-1) begin
-               x <= x + 1;
-               if (y < SCREEN_HEIGHT-1) begin
-                  y <= y + 1;
+            if (y<SCREEN_HEIGHT-1) begin
+               if(x == (SCREEN_WIDTH-1)) begin
+                  x = 0;
+                  y= y + 1;
                end else begin
-                  y <= 0;
-                  // state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
-                  // is_init <= 1; //finish the init sequence, advertise to the upper modules
-                  // next_pixel <= 1;
-               end                 
-            end else begin
-               x <= 0;
+                  x=x+1;
+               end               
             end
 
-            if(x == (SCREEN_WIDTH-1) && y == (SCREEN_HEIGHT-1)) begin //image finished
+            if(y == (SCREEN_HEIGHT-1)) begin //image finished
                x <= 0;
                y <= 0;
                state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
-               is_init <= 1; //finish the init sequence, advertise to the upper modules
-               
+               is_init <= 1; //finish the init sequence, advertise to the upper modules    
             end
+   
+            // if(current_pixel == SCREEN_WIDTH*SCREEN_HEIGHT-1) begin
+            //    current_pixel <= 0;
+            //    state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
+            //    is_init <= 1; //finish the init sequence, advertise to the upper modules
+            // end
          end
          oled_dc <= 1; //set mosi as "data"
          oled_mosi <= 0; //black
@@ -595,11 +608,12 @@ module st7735(
       end
       STATE_WAITING_PIXEL: begin
          oled_cs <= 1;
-         // next_pixel <= 1;
+         next_pixel <= 1;
          // state <= STATE_FRAME;
          // current_byte_pos <= 15;
          if(buffer_free == 0) begin
             state <= STATE_FRAME;
+
             //consume next pixel and advertise the register system
             pixel_display <= buffer_pixel_write;
             advertise_pixel_consume <= ~advertise_pixel_consume;
@@ -608,30 +622,41 @@ module st7735(
       end
       STATE_FRAME: begin
          oled_cs <= 0;
+         next_pixel <= 0;
          if(current_byte_pos == 0) begin
 
             current_byte_pos <= 15;
             // current_pixel <= current_pixel + 1;
 
-            if (x < SCREEN_WIDTH-1) begin
-               x <= x + 1;
-               if (y < SCREEN_HEIGHT-1) begin
-                  y <= y + 1;
+            if (y<SCREEN_HEIGHT-1) begin
+               if(x == (SCREEN_WIDTH-1)) begin
+                  x = 0;
+                  y= y + 1;
                end else begin
-                  y <= 0;
-               end                 
-            end else begin
-               x <= 0;
+                  x=x+1;
+               end               
             end
-            if(x == (SCREEN_WIDTH-1) && y == (SCREEN_HEIGHT-1)) begin //image finished
+
+            if(y == (SCREEN_HEIGHT-1)) begin //image finished
                x <= 0;
                y <= 0;
+               // current_pixel <= 0;
                state <= STATE_SEND_RAMWR; //send a new frame
                reg_valid <= 1;
             end
             else begin
                state <= STATE_WAITING_PIXEL;
             end
+            
+
+            // if(current_pixel == (SCREEN_WIDTH)*(SCREEN_HEIGHT)-1) begin //image finished
+            //    current_pixel <= 0;
+            //    state <= STATE_SEND_RAMWR; //send a new frame
+            //    reg_valid <= 1;
+            // end
+            // else begin
+            //    state <= STATE_WAITING_PIXEL;
+            // end
          end
          oled_dc <= 1; //set mosi as "data"
          oled_mosi <= pixel_display[current_byte_pos];

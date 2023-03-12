@@ -12,7 +12,7 @@ module top_hex_demo
     parameter C_color_bits = 16; 
 
     localparam BITS = 5;
-    localparam LOG2DELAY = 21;
+    localparam LOG2DELAY = 11;
 
     reg [127:0] counter = 0;
     reg [127:0] R_display; // something to display

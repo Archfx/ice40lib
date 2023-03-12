@@ -589,11 +589,6 @@ module st7735(
                is_init <= 1; //finish the init sequence, advertise to the upper modules    
             end
    
-            // if(current_pixel == SCREEN_WIDTH*SCREEN_HEIGHT-1) begin
-            //    current_pixel <= 0;
-            //    state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
-            //    is_init <= 1; //finish the init sequence, advertise to the upper modules
-            // end
          end
          oled_dc <= 1; //set mosi as "data"
          oled_mosi <= 0; //black
@@ -650,15 +645,6 @@ module st7735(
                state <= STATE_WAITING_PIXEL;
             end
             
-
-            // if(current_pixel == (SCREEN_WIDTH)*(SCREEN_HEIGHT)-1) begin //image finished
-            //    current_pixel <= 0;
-            //    state <= STATE_SEND_RAMWR; //send a new frame
-            //    reg_valid <= 1;
-            // end
-            // else begin
-            //    state <= STATE_WAITING_PIXEL;
-            // end
          end
          oled_dc <= 1; //set mosi as "data"
          oled_mosi <= pixel_display[current_byte_pos];

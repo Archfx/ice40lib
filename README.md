@@ -8,15 +8,17 @@ iCESuger nano FPGA ships with several PMOD accessories. This repository contains
 Content
 ======
 
-1. [blinky](/blinky/) : LED blink example 
+1. [blinky](/blinky/) : LED blink example
 2. [lcd](/lcd/) : Examples for PMOD 0.96in LCD
 2. [st7735](/st7736/) : Driver for PMOD 0.96in LCD
 
 
 
+
+LCD driver is configured for ICESugar nano default clock rate of 12MHz and this driver can save your SPI pins for SPI stuff.
 <p align="center">
   <img src="images/lcd-test.gif" alt="Sublime's custom image"/>
-<br> lcd checkered demo on 0.96 oled
+<br> Checkered demo on 0.96 oled
 </p>
 
 
@@ -65,7 +67,7 @@ This will open up a browser window with
 docker exec -it ice40tools /bin/bash
 ```
 
-6. Comlpile the design and upload
+6. Compile the design and upload
 
 Note change the --pl1k parameter with the chip model that you have. iCESugar Nano uses ice40LP1k-CM36 chip
 
@@ -85,6 +87,7 @@ iceprog blinky.bin
 Relevant Docs
 =========
 
-IceSugar Nano Schematic :
+[IceSugar Nano Schematic](https://github.com/wuxx/icesugar-nano/blob/main/schematic/ICESugar-nano-v1.2.pdf)
+[ulx3s](https://github.com/lawrie/ulx3s_examples)
+[Some Drivers](https://github.com/damdoy/fpga_peripherals)
 
-https://github.com/wuxx/icesugar-nano/blob/main/schematic/ICESugar-nano-v1.2.pdf

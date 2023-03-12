@@ -14,6 +14,12 @@ Content
 
 
 
+<p align="center">
+  <img src="images/lcd-test.gif" alt="Sublime's custom image"/>
+<br> lcd checkered demo on 0.96 oled
+</p>
+
+
 
 Build
 Yosys toolchain is required to build the binary files.

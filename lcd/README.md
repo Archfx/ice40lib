@@ -9,13 +9,19 @@ Run below commands inside the docker container
 
 ### Building checkered demo
 
+<p align="center">
+  <img src="../images/lcd-test.gif" alt="Sublime's custom image"/>
+<br> lcd checkered demo on 0.96 oled
+</p>
+
 ```shell
-yosys -p 'synth_ice40 -top top_checkered -json checkered.json' top_checkered.v oled_video.v
+yosys -p 'synth_ice40 -top top_checkered -json checkered.json' top_checkered.v st7735.v
 
 nextpnr-ice40 --lp1k --json checkered.json --pcf lcd.pcf --asc checkered.asc --package cm36
 
 icepack checkered.asc checkered.bin
 ```
+or simply run the bash script `compile_check.sh` from inside the docker environment
 
 
 ### Building hex demo

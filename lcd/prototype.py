@@ -10,14 +10,14 @@ y=0
 done = True
 for r in range(500):
     # if (x<160):
-    if (y<79):
+    if (x<159):
         # y=y+1;/
-        if (x == 159):
-            x=0
-            y=y+1
+        if (y == 79):
+            y=0
+            x=x+1
             # print(x,y)
         else : 
-            x=x+1
+            y=y+1
 
         print(x,y)
 

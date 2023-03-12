@@ -12,7 +12,7 @@ module ST7735(input clk, output reg spi_clk, output reg spi_mosi, output reg spi
    parameter HALF_UART_PERIOD = (FREQ_MAIN_HZ/FREQ_TARGET_SPI_HZ)/2;
 
    parameter SCREEN_WIDTH = 160; //pixel size displayed on screen
-   parameter SCREEN_HEIGHT = 80; //pixel size displayed on screen
+   parameter SCREEN_HEIGHT = 81; //pixel size displayed on screen
 
    
    reg [3:0] clk_counter_tx;

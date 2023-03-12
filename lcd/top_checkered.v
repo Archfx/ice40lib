@@ -8,7 +8,9 @@ module top_checkered (
 );
     //                  checkered      red   green      blue     red       green blue
     wire [15:0] pattern1 = x[3] ^ y[2] ? {5'd0, 6'b111111, 5'd0} : {5'd0, 6'd0, 5'b11111};
-    wire [15:0] pattern2 = x[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
+
+    // wire [15:0] pattern1 = (y>7'd40) ? {5'd0, 6'b111111, 5'd0} : {5'd0, 6'd0, 5'b11111};
+    wire [15:0] pattern2 = (x>8'd80) ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
     // wire [15:0] pattern3 = x[3] ^ y[2] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
     // wire [15:0] pattern4 = x[3] ? {5'd0, 6'b111111, 5'd0} : {5'b11111, 6'd0, 5'd0};
 

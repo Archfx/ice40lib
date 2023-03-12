@@ -12,8 +12,8 @@ module st7735(
    output reg oled_cs, 
    output reg reset,
    
-   output reg  [$clog2(SCREEN_WIDTH):0] x,
-   output reg  [$clog2(SCREEN_HEIGHT):0] y,
+   output reg  [7:0] x,
+   output reg  [6:0] y,
    output reg  next_pixel, // 1 when x/y changes
    input  wire [15:0] color
    
@@ -24,8 +24,8 @@ module st7735(
    parameter FREQ_TARGET_SPI_HZ = 4000000; // Pulse width (1/3)us = (1/3000)ms // Pulse width (1/2)us = (1/2000)ms
    parameter HALF_UART_PERIOD = (FREQ_MAIN_HZ/FREQ_TARGET_SPI_HZ)/2;
 
-   parameter SCREEN_WIDTH = 160; //pixel size displayed on screen
-   parameter SCREEN_HEIGHT = 80; //pixel size displayed on screen
+   parameter SCREEN_WIDTH = 161; //x - pixel size displayed on screen
+   parameter SCREEN_HEIGHT = 81; //y - pixel size displayed on screen
 
    // parameter SCREEN_WIDTH = 80; //pixel size displayed on screen
    // parameter SCREEN_HEIGHT = 160; //pixel size displayed on screen
@@ -101,7 +101,7 @@ module st7735(
    parameter [7:0] CMD_PARAM1_RASET = 8'h00;
    parameter [7:0] CMD_PARAM2_RASET = 8'h01;//01;
    parameter [7:0] CMD_PARAM3_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_RASET = 8'hA2;
+   parameter [7:0] CMD_PARAM4_RASET = 8'hA1;
 
    parameter [7:0] CMD_NORON = 8'h13;
    
@@ -573,16 +573,16 @@ module st7735(
             current_byte_pos <= 15;
             // current_pixel <= current_pixel + 1;
 
-            if (y<SCREEN_HEIGHT-1) begin
-               if(x == (SCREEN_WIDTH-1)) begin
-                  x = 0;
-                  y= y + 1;
+            if (x<SCREEN_WIDTH-1) begin
+               if(y == (SCREEN_HEIGHT-1)) begin
+                  y = 0;
+                  x = x + 1;
                end else begin
-                  x=x+1;
+                  y = y + 1;
                end               
             end
 
-            if(y == (SCREEN_HEIGHT-1)) begin //image finished
+            if(x == (SCREEN_WIDTH-1)) begin //image finished
                x <= 0;
                y <= 0;
                state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
@@ -630,16 +630,16 @@ module st7735(
             current_byte_pos <= 15;
             // current_pixel <= current_pixel + 1;
 
-            if (y<SCREEN_HEIGHT-1) begin
-               if(x == (SCREEN_WIDTH-1)) begin
-                  x = 0;
-                  y= y + 1;
+            if (x<SCREEN_WIDTH-1) begin
+               if(y == (SCREEN_HEIGHT-1)) begin
+                  y = 0;
+                  x = x + 1;
                end else begin
-                  x=x+1;
+                  y = y + 1;
                end               
             end
 
-            if(y == (SCREEN_HEIGHT-1)) begin //image finished
+            if(x == (SCREEN_WIDTH-1)) begin //image finished
                x <= 0;
                y <= 0;
                // current_pixel <= 0;

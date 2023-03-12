@@ -1,0 +1,4 @@
+*.asc linguist-detectable=false
+*.bin linguist-detectable=false
+*.json linguist-detectable=false
+*.mem linguist-detectable=false

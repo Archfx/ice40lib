@@ -87,7 +87,7 @@ iceprog blinky.bin
 Relevant Docs
 =========
 
-[IceSugar Nano Schematic](https://github.com/wuxx/icesugar-nano/blob/main/schematic/ICESugar-nano-v1.2.pdf)
-[ulx3s](https://github.com/lawrie/ulx3s_examples)
-[Some Drivers](https://github.com/damdoy/fpga_peripherals)
+- [IceSugar Nano Schematic](https://github.com/wuxx/icesugar-nano/blob/main/schematic/ICESugar-nano-v1.2.pdf)
+- [ulx3s](https://github.com/lawrie/ulx3s_examples)
+- [Some Drivers](https://github.com/damdoy/fpga_peripherals)
 

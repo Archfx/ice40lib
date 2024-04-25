@@ -12,7 +12,7 @@ module top_hex_demo
     parameter C_color_bits = 16; 
 
     localparam BITS = 5;
-    localparam LOG2DELAY = 11;
+    localparam LOG2DELAY = 21;
 
     reg [127:0] counter = 0;
     reg [127:0] R_display; // something to display
@@ -20,10 +20,10 @@ module top_hex_demo
     always @(posedge clk)
     begin
         counter <= counter + 1;
-        R_display <= counter >> LOG2DELAY;
+        R_display <= 127'd0;//counter >> LOG2DELAY;
     end
 
-    wire [6:0] x;
+    wire [8:0] x;
     wire [7:0] y;
     wire next_pixel;
     wire [C_color_bits-1:0] color;

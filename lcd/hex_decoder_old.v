@@ -15,8 +15,8 @@ module hex_decoder
   // C_data_len(63 downto 0) is shown on the first line
   // C_data_len(127 downto 64) is shown on second line etc.
   parameter C_color_bits = 16,
-  parameter C_x_bits = 8, // X screen bits
-  parameter C_y_bits = 7  // Y screen bits
+  parameter C_x_bits = 7, // X screen bits
+  parameter C_y_bits = 6  // Y screen bits
 )
 (
   input  wire clk, // 1-25 MHz clock typical
@@ -36,7 +36,7 @@ module hex_decoder
 
   reg [C_data_len-1:0] R_data;
 
-  // reg R_dc = 1'b0; // 0-command, 1-data
+  reg R_dc = 1'b0; // 0-command, 1-data
 
   localparam C_holding_bits = 23;
   reg [C_holding_bits-1:0] R_holding = 0; // debounce counter
@@ -135,11 +135,9 @@ module hex_decoder
   assign S_indexed_data = R_data[ {R_data_index, 2'd0} +: 4 ];
 
   reg [10:0] R_counter;
-
-
   always @(posedge clk) begin
       if (next_pixel) begin // next pixel appears every 16th clock cycle 
-        if (x >= 1 && x < 6 && y>=71 && y <79 )
+        if (x >= 1 && x < 179)
               begin
                 // pixel data
                 R_pixel <= S_pixel;

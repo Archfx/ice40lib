@@ -44,78 +44,19 @@ module st7735(
    reg advertise_pixel_consume_buffer;
    reg [15:0] pixel_display;
 
-   reg [5:0] state;
-   parameter STATE_IDLE=0, STATE_SEND_SWRESET=STATE_IDLE+1, STATE_INTERVAL_SWRESET=STATE_SEND_SWRESET+1, STATE_SEND_SLPOUT=STATE_INTERVAL_SWRESET+1,
-             STATE_INTERVAL_SLPOUT=STATE_SEND_SLPOUT+1, STATE_SEND_PARAMS=STATE_INTERVAL_SLPOUT+1, STATE_SEND_INVCTR=STATE_SEND_PARAMS+1, STATE_SEND_INVCTR_PARAM=STATE_SEND_INVCTR+1,
-             STATE_SEND_CMD_PWCTR1=STATE_SEND_INVCTR_PARAM+1, STATE_SEND_PWCTR1_PARAMS=STATE_SEND_CMD_PWCTR1+1,
-             STATE_SEND_CMD_PWCTR4=STATE_SEND_PWCTR1_PARAMS+1, STATE_SEND_PWCTR4_PARAMS=STATE_SEND_CMD_PWCTR4+1, STATE_SEND_CMD_PWCTR5=STATE_SEND_PWCTR4_PARAMS+1, STATE_SEND_PWCTR5_PARAMS=STATE_SEND_CMD_PWCTR5+1,
-             STATE_SEND_CMD_VMCTR1=STATE_SEND_PWCTR5_PARAMS+1, STATE_SEND_VMCTR1_PARAM=STATE_SEND_CMD_VMCTR1+1,
-             STATE_SEND_CMD_INVON=STATE_SEND_VMCTR1_PARAM+1,
-             STATE_SEND_CMD_MADCTL=STATE_SEND_CMD_INVON+1, STATE_SEND_MADCTL_PARAM=STATE_SEND_CMD_MADCTL+1,
-             STATE_SEND_CMD_COLMOD=STATE_SEND_MADCTL_PARAM+1, STATE_SEND_COLMOD_PARAM=STATE_SEND_CMD_COLMOD+1,
-             STATE_SEND_CMD_CASET=STATE_SEND_COLMOD_PARAM+1, STATE_SEND_CASET_PARAMS=STATE_SEND_CMD_CASET+1, STATE_SEND_CMD_RASET=STATE_SEND_CASET_PARAMS+1, STATE_SEND_RASET_PARAMS=STATE_SEND_CMD_RASET+1,
-             STATE_SEND_NORON=STATE_SEND_RASET_PARAMS+1, STATE_INTERVAL_NORON=STATE_SEND_NORON+1,
-             STATE_SEND_DISPON=STATE_INTERVAL_NORON+1, STATE_INTERVAL_DISPON=STATE_SEND_DISPON+1, STATE_SEND_READ_REQ=STATE_INTERVAL_DISPON+1, STATE_READ_VAL=STATE_SEND_READ_REQ+1,
-             STATE_SEND_RAMWR_INIT=STATE_READ_VAL+1,
-             STATE_FRAME_INIT=STATE_SEND_RAMWR_INIT+1,
-             STATE_SEND_RAMWR=STATE_FRAME_INIT+1,
-             STATE_FRAME=STATE_SEND_RAMWR+1, STATE_WAITING_PIXEL=STATE_FRAME+1, STATE_STOP=STATE_WAITING_PIXEL+1;
+   reg [3:0] state;
+   parameter STATE_IDLE=0, SEND_CMD=STATE_IDLE+1, CMD_WAIT=SEND_CMD+1, STATE_FRAME_INIT=CMD_WAIT+1,
+               STATE_WAITING_PIXEL=STATE_FRAME_INIT+1, STATE_FRAME=STATE_WAITING_PIXEL+1;
 
-   parameter [7:0] CMD_SWRESET = 8'h01; //software reset
-   parameter [7:0] CMD_SLPOUT = 8'h11; //sleep out
-   parameter [7:0] CMD_INVCTR = 8'hb4; //display inversion control
-   parameter [7:0] CMD_PARAM_INVCTR = 8'h07; //normal mode 
-   parameter [7:0] CMD_PWCTR1 = 8'hC0;
-   parameter [7:0] CMD_PARAM1_PWCTR1 = 8'hA2;//8'h82;
-   parameter [7:0] CMD_PARAM2_PWCTR1 = 8'h02;
-   parameter [7:0] CMD_PARAM3_PWCTR1 = 8'h84;
-   parameter [7:0] CMD_PWCTR4 = 8'hC3;
-   parameter [7:0] CMD_PARAM1_PWCTR4 = 8'h8A;
-   parameter [7:0] CMD_PARAM2_PWCTR4 = 8'h2A;//8'h2E;
-   parameter [7:0] CMD_PWCTR5 = 8'hC4;
-   parameter [7:0] CMD_PARAM1_PWCTR5 = 8'h8A;
-   parameter [7:0] CMD_PARAM2_PWCTR5 = 8'hEE;//8'hAA;
-   parameter [7:0] CMD_VMCTR1 = 8'hC5;
-   parameter [7:0] CMD_PARAM_VMCTR1 = 8'h0E; 
-   parameter [7:0] CMD_INVON = 8'h21;
-   parameter [7:0] CMD_MADCTL = 8'h36;
-   parameter [7:0] CMD_PARAM_MADCTL = 8'hC8;
-   parameter [7:0] CMD_COLMOD = 8'h3A;
-   parameter [7:0] CMD_PARAM_COLMOD = 8'h05;
-
-   // x  Top left corner x coordinate
-   // y  Top left corner x coordinate
-   // w  Width of window
-   // h  Height of window
    
-   parameter [7:0] CMD_CASET = 8'h2A;
-   //start and end of column position to draw on the screen
-   //the drawable area is starting at 0 // Rmcd2green160x80 from Adafruit library
-   parameter [7:0] CMD_PARAM1_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_CASET = 8'h1A;
-   parameter [7:0] CMD_PARAM3_CASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_CASET = 8'h6A;
-   //start and end of row position to draw on the screen
-   //the drawable area is starting at 0
-   parameter [7:0] CMD_RASET = 8'h2B;
-   parameter [7:0] CMD_PARAM1_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM2_RASET = 8'h01;//01;
-   parameter [7:0] CMD_PARAM3_RASET = 8'h00;
-   parameter [7:0] CMD_PARAM4_RASET = 8'hA1;
-
-   parameter [7:0] CMD_NORON = 8'h13;
-   
-   parameter [7:0] CMD_DISPON = 8'h29;
-   
-   parameter [7:0] CMD_RAMWR = 8'h2C;
    reg reg_valid;
 
 
 
-   parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
-   parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
-   parameter CMD_NORON_DELAY = 20000; //10ms delay
-   parameter CMD_DISPON_DELAY = 200000; //100ms delay
+   // parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
+   // parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
+   // parameter CMD_NORON_DELAY = 20000; //10ms delay
+   // parameter CMD_DISPON_DELAY = 200000; //100ms delay
 
 
    reg [23:0] delay_counter;
@@ -128,6 +69,10 @@ module st7735(
 
    assign pixel_write = color;
 
+
+   reg [7:0] param_array [34];
+   reg [5:0] cmd_selector;
+   reg [24:0] wait_time;
    // assign x = current_pixel/SCREEN_WIDTH;
    // assign y = current_pixel%SCREEN_WIDTH;
 
@@ -164,7 +109,7 @@ module st7735(
       delay_counter = 0;
       enable <= 0;
 
-      state = STATE_SEND_SWRESET;
+      state = SEND_CMD;
 
       reset = 0;
       oled_dc = 0;
@@ -172,6 +117,57 @@ module st7735(
 
       // pixel_write = 16'hffff;
       wr_en = 1;
+
+      param_array[0] = 8'h01; //software reset CMD_SWRESET = 8'h01; //software reset
+      param_array[1] = 8'h11; //sleep out CMD_SLPOUT = 8'h11; //sleep out
+      param_array[2] = 8'hb4; //display inversion control CMD_INVCTR = 8'hb4; //display inversion control
+      param_array[3] = 8'h07; //normal mode CMD_PARAM_INVCTR = 8'h07; //normal mode 
+      param_array[4] = 8'hC0; // CMD_PWCTR1 = 8'hC0;
+      param_array[5] = 8'hA2;//8'h82; CMD_PARAM1_PWCTR1 = 8'hA2;//8'h82;
+      param_array[6] = 8'h02;// CMD_PARAM2_PWCTR1 = 8'h02;
+      param_array[7] = 8'h84;// CMD_PARAM3_PWCTR1 = 8'h84;
+      param_array[8] = 8'hC3; //CMD_PWCTR4 = 8'hC3;
+      param_array[9] = 8'h8A; // CMD_PARAM1_PWCTR4 = 8'h8A;
+      param_array[10] = 8'h2A;// CMD_PARAM2_PWCTR4 = 8'h2A;//8'h2E;
+      param_array[11] = 8'hC4;// CMD_PWCTR5 = 8'hC4;
+      param_array[12] = 8'h8A;// CMD_PARAM1_PWCTR5 = 8'h8A;
+      param_array[13] = 8'hEE;// CMD_PARAM2_PWCTR5 = 8'hEE;//8'hAA;
+      param_array[14] = 8'hC5;// CMD_VMCTR1 = 8'hC5;
+      param_array[15] = 8'h0E; // CMD_PARAM_VMCTR1 = 8'h0E; 
+      param_array[16] = 8'h21;// CMD_INVON = 8'h21;
+      param_array[17] = 8'h36;// CMD_MADCTL = 8'h36;
+      param_array[18] = 8'hC8;// CMD_PARAM_MADCTL = 8'hC8;
+      param_array[19] = 8'h3A;// CMD_COLMOD = 8'h3A;
+      param_array[20] = 8'h05;// CMD_PARAM_COLMOD = 8'h05;
+
+      // // x  Top left corner x coordinate
+      // // y  Top left corner x coordinate
+      // // w  Width of window
+      // // h  Height of window
+
+      param_array[21]  = 8'h2A;// CMD_CASET = 8'h2A;
+      // //start and end of column position to draw on the screen
+      // //the drawable area is starting at 0 // Rmcd2green160x80 from Adafruit library
+      param_array[22] = 8'h00;// CMD_PARAM1_CASET = 8'h00;
+      param_array[23] = 8'h1A;// CMD_PARAM2_CASET = 8'h1A;
+      param_array[24] = 8'h00;// CMD_PARAM3_CASET = 8'h00;
+      param_array[25] = 8'h6A;// CMD_PARAM4_CASET = 8'h6A;
+      // //start and end of row position to draw on the screen
+      // //the drawable area is starting at 0
+      param_array[26] = 8'h2B;// CMD_RASET =  8'h2B;
+      param_array[27] = 8'h00;// CMD_PARAM1_RASET = 8'h00;
+      param_array[28] = 8'h01;// CMD_PARAM2_RASET = 8'h01;//01;
+      param_array[29] = 8'h00;// CMD_PARAM3_RASET = 8'h00;
+      param_array[30]  = 8'hA1;// CMD_PARAM4_RASET = 8'hA1;
+
+      param_array[31] = 8'h13;// CMD_NORON = 8'h13;
+
+      param_array[32] = 8'h29;// CMD_DISPON = 8'h29;
+
+      param_array[33]  = 8'h2C;// CMD_RAMWR = 8'h2C;
+
+      cmd_selector = 0;
+      wait_time = 0;
    end
 
 
@@ -210,9 +206,6 @@ module st7735(
 
       //read pixel, will be consumed by the SPI state machine
       if(wr_en == 1) begin
-         // buffer_pixel_write <= pixel_write;
-         // buffer_pixel_write <= 16'hffff;
-
          buffer_free <= 0;
       end
 
@@ -233,338 +226,93 @@ module st7735(
       current_byte_pos <= current_byte_pos-1;
 
       case (state) //send the config data, then the screen data
-      STATE_SEND_SWRESET : begin
-         oled_mosi <= CMD_SWRESET[current_byte_pos];
+      SEND_CMD : begin
+         oled_mosi <= param_array[cmd_selector][current_byte_pos];
          oled_cs <= 0;
          if(current_byte_pos == 0) begin
-            state <= STATE_INTERVAL_SWRESET;
+            // state <= CMD_WAIT;
             current_byte_pos <= 7;
             counter_send_interval <= 0;
-         end
-      end
-      STATE_INTERVAL_SWRESET : begin
-         counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/12)) begin //wait 150ms
-            state <= STATE_SEND_SLPOUT;
-            current_byte_pos <= 7;
-         end
-      end
-      STATE_SEND_SLPOUT : begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_SLPOUT[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_INTERVAL_SLPOUT;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_INTERVAL_SLPOUT : begin
-         counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/4)) begin //wait 500ms
-            state <= STATE_SEND_INVCTR;
-            counter_current_param <= 0;
-            current_byte_pos <= 7;
-         end
-      end
-      STATE_SEND_INVCTR : begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_INVCTR[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_INVCTR_PARAM;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_INVCTR_PARAM: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         oled_mosi <= CMD_PARAM_INVCTR[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_PWCTR1;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_PWCTR1: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_PWCTR1[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_PWCTR1_PARAMS;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_PWCTR1_PARAMS: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         if(counter_current_param == 0) begin
-            oled_mosi <= CMD_PARAM1_PWCTR1[current_byte_pos];
-         end
-         if(counter_current_param == 1) begin
-            oled_mosi <= CMD_PARAM2_PWCTR1[current_byte_pos];
-         end
-         if(counter_current_param == 2) begin
-            oled_mosi <= CMD_PARAM3_PWCTR1[current_byte_pos];
-         end
-         if(current_byte_pos == 0) begin
-            counter_current_param <= counter_current_param+1;
-            if(counter_current_param == 2) begin
-               counter_current_param <= 0;
-               state <= STATE_SEND_CMD_PWCTR4;
+
+            if(cmd_selector == 0) begin
+               state <= CMD_WAIT;
+               wait_time <= (FREQ_TARGET_SPI_HZ/12);
+               oled_dc <= 0;
+               current_byte_pos <= 7;
             end
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_PWCTR4: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_PWCTR4[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_PWCTR4_PARAMS;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_PWCTR4_PARAMS: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         if(counter_current_param == 0) begin
-            oled_mosi <= CMD_PARAM1_PWCTR4[current_byte_pos];
-         end
-         if(counter_current_param == 1) begin
-            oled_mosi <= CMD_PARAM2_PWCTR4[current_byte_pos];
-         end
-         if(current_byte_pos == 0) begin
-            counter_current_param <= counter_current_param+1;
-            if(counter_current_param == 1) begin
-               counter_current_param <= 0;
-               state <= STATE_SEND_CMD_PWCTR5;
+            else if(cmd_selector == 1) begin
+               state <= CMD_WAIT;
+               wait_time <= (FREQ_TARGET_SPI_HZ/4);
+               oled_dc <= 0;
+               current_byte_pos <= 7;
             end
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_PWCTR5: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_PWCTR5[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_PWCTR5_PARAMS;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_PWCTR5_PARAMS: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         if(counter_current_param == 0) begin
-            oled_mosi <= CMD_PARAM1_PWCTR5[current_byte_pos];
-         end
-         if(counter_current_param == 1) begin
-            oled_mosi <= CMD_PARAM2_PWCTR5[current_byte_pos];
-         end
-         if(current_byte_pos == 0) begin
-            counter_current_param <= counter_current_param+1;
-            if(counter_current_param == 1) begin
-               counter_current_param <= 0;
-               state <= STATE_SEND_CMD_VMCTR1;
-            end
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_VMCTR1: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_VMCTR1[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_VMCTR1_PARAM;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_VMCTR1_PARAM: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         oled_mosi <= CMD_PARAM_VMCTR1[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_INVON;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_INVON: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_INVON[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_MADCTL;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_CMD_MADCTL: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_MADCTL[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_MADCTL_PARAM;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_MADCTL_PARAM: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         oled_mosi <= CMD_PARAM_MADCTL[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_COLMOD;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_COLMOD: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_COLMOD[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_COLMOD_PARAM;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_COLMOD_PARAM: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         oled_mosi <= CMD_PARAM_COLMOD[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CMD_CASET;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_CASET: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_CASET[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_CASET_PARAMS;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_CASET_PARAMS: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         if(counter_current_param == 0) begin
-            oled_mosi <= CMD_PARAM1_CASET[current_byte_pos];
-         end
-         if(counter_current_param == 1) begin
-            oled_mosi <= CMD_PARAM2_CASET[current_byte_pos];
-         end
-         if(counter_current_param == 2) begin
-            oled_mosi <= CMD_PARAM3_CASET[current_byte_pos];
-         end
-         if(counter_current_param == 3) begin
-            oled_mosi <= CMD_PARAM4_CASET[current_byte_pos];
-         end
-         if(current_byte_pos == 0) begin
-            counter_current_param <= counter_current_param+1;
-            if(counter_current_param == 3) begin
-               counter_current_param <= 0;
-               state <= STATE_SEND_CMD_RASET;
-            end
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_SEND_CMD_RASET: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_RASET[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_SEND_RASET_PARAMS;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-            counter_current_param <= 0;
-         end
-      end
-      STATE_SEND_RASET_PARAMS: begin
-         oled_cs <= 0;
-         oled_dc <= 1; //params are seen as data
-         if(counter_current_param == 0) begin
-            oled_mosi <= CMD_PARAM1_RASET[current_byte_pos];
-         end
-         if(counter_current_param == 1) begin
-            oled_mosi <= CMD_PARAM2_RASET[current_byte_pos];
-         end
-         if(counter_current_param == 2) begin
-            oled_mosi <= CMD_PARAM3_RASET[current_byte_pos];
-         end
-         if(counter_current_param == 3) begin
-            oled_mosi <= CMD_PARAM4_RASET[current_byte_pos];
-         end
-         if(current_byte_pos == 0) begin
-            counter_current_param <= counter_current_param+1;
-            if(counter_current_param == 3) begin
-               counter_current_param <= 0;
-               if(is_init) begin
-                  state <= STATE_SEND_RAMWR;
+            else if(cmd_selector == 3 || cmd_selector == 5 || cmd_selector == 6 || cmd_selector == 7 || cmd_selector == 9
+               || cmd_selector == 10 || cmd_selector == 12 || cmd_selector == 13 || cmd_selector == 15 || cmd_selector == 18
+               || cmd_selector == 20 || cmd_selector == 22 || cmd_selector == 23 || cmd_selector == 24 || cmd_selector == 25
+               || cmd_selector == 27 || cmd_selector == 28 || cmd_selector == 29 || cmd_selector == 30   ) begin
+               
+               wait_time <= 0;
+               current_byte_pos <= 7;
+               if (cmd_selector == 30) begin
+
+                  if(is_init) begin
+                     // state <= STATE_SEND_RAMWR;
+                     cmd_selector <= 35;
+                     state <= SEND_CMD;
+                  end
+                  else begin
+                     cmd_selector <= cmd_selector + 1;
+                     state <= SEND_CMD;
+                  end
+                  
                end
                else begin
-                  state <= STATE_SEND_NORON;
+                  cmd_selector <= cmd_selector + 1;
+                  state <= SEND_CMD;
                end
+               oled_dc <= 1; //params are seen as data
             end
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
+            else if(cmd_selector == 31) begin
+               state <= CMD_WAIT;
+               wait_time <= (FREQ_TARGET_SPI_HZ/200);
+               oled_dc <= 0;
+               current_byte_pos <= 7;
+            end
+            else if(cmd_selector == 33) begin
+               state <= CMD_WAIT;
+               wait_time <= (FREQ_TARGET_SPI_HZ/20);
+               oled_dc <= 0;
+               current_byte_pos <= 7;
+            end
+            else if(cmd_selector == 35 ) begin //STATE_SEND_RAMWR
+               if (is_init) begin
+                  state <= STATE_WAITING_PIXEL;
+               end
+               else begin
+                  state <= STATE_FRAME_INIT;
+               end
+               current_byte_pos <= 15;
+               counter_send_interval <= 0;
+               oled_dc <= 0;
+            end
+            else begin
+               cmd_selector <= cmd_selector + 1;
+               current_byte_pos <= 7;
+               counter_send_interval <= 0;
+               counter_current_param <= 0;
+               oled_dc <= 0;
+            end
          end
       end
-
-      STATE_SEND_NORON : begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_NORON[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_INTERVAL_NORON;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_INTERVAL_NORON : begin
+      CMD_WAIT : begin
          counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/200)) begin //wait 10ms
-            state <= STATE_SEND_DISPON;
-            counter_current_param <= 0;
-            current_byte_pos <= 7;
+         if(counter_send_interval == wait_time) begin //wait
+               current_byte_pos <= 7;
+               state <= SEND_CMD;
+               cmd_selector <= cmd_selector + 1;
          end
       end
-      STATE_SEND_DISPON : begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_DISPON[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_INTERVAL_DISPON;
-            current_byte_pos <= 7;
-            counter_send_interval <= 0;
-         end
-      end
-      STATE_INTERVAL_DISPON : begin
-         counter_send_interval <= counter_send_interval + 1;
-         if(counter_send_interval == (FREQ_TARGET_SPI_HZ/20)) begin //wait 100ms
-            state <= STATE_SEND_RAMWR_INIT;
-            counter_current_param <= 0;
-            current_byte_pos <= 7;
-         end
-      end
-      STATE_SEND_RAMWR_INIT: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_RAMWR[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_FRAME_INIT;
-            current_byte_pos <= 15;
-            counter_send_interval <= 0;
-         end
-      end
-
+      
       
       //fill the display with black pixels
       STATE_FRAME_INIT: begin
@@ -585,7 +333,10 @@ module st7735(
             if(x == (SCREEN_WIDTH-1)) begin //image finished
                x <= 0;
                y <= 0;
-               state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
+               // state <= STATE_SEND_CMD_CASET; //go back to the CASET param and then draw pixels
+               state <= SEND_CMD; 
+               cmd_selector <= 23;
+
                is_init <= 1; //finish the init sequence, advertise to the upper modules    
             end
    
@@ -594,15 +345,6 @@ module st7735(
          oled_mosi <= 0; //black
       end
 
-      STATE_SEND_RAMWR: begin
-         oled_cs <= 0;
-         oled_mosi <= CMD_RAMWR[current_byte_pos];
-         if(current_byte_pos == 0) begin
-            state <= STATE_WAITING_PIXEL;
-            current_byte_pos <= 15;
-            counter_send_interval <= 0;
-         end
-      end
       STATE_WAITING_PIXEL: begin
          oled_cs <= 1;
          next_pixel <= 1;
@@ -610,7 +352,7 @@ module st7735(
          // current_byte_pos <= 15;
          if(buffer_free == 0) begin
             state <= STATE_FRAME;
-
+            
             //consume next pixel and advertise the register system
             pixel_display <= buffer_pixel_write;
             advertise_pixel_consume <= ~advertise_pixel_consume;
@@ -621,10 +363,7 @@ module st7735(
          oled_cs <= 0;
          next_pixel <= 0;
          if(current_byte_pos == 0) begin
-
             current_byte_pos <= 15;
-            // current_pixel <= current_pixel + 1;
-
             if (x<SCREEN_WIDTH-1) begin
                if(y == (SCREEN_HEIGHT-1)) begin
                   y = 0;
@@ -638,7 +377,9 @@ module st7735(
                x <= 0;
                y <= 0;
                // current_pixel <= 0;
-               state <= STATE_SEND_RAMWR; //send a new frame
+               // state <= STATE_SEND_RAMWR; //send a new frame
+               state <= SEND_CMD; 
+               cmd_selector <= 35;
                reg_valid <= 1;
             end
             else begin
@@ -649,8 +390,7 @@ module st7735(
          oled_dc <= 1; //set mosi as "data"
          oled_mosi <= pixel_display[current_byte_pos];
       end
-      STATE_STOP: begin
-      end
+
       endcase
    end
 endmodule
